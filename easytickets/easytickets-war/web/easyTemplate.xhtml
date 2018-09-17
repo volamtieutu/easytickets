@@ -1,0 +1,299 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:head>
+        <title>EASYtickets.COM</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <link href="resources/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="resources/css/slider.css" rel="stylesheet" type="text/css" media="all"/>
+        <script type="text/javascript" src="resources/js/jquery-1.9.0.min.js"></script> 
+        <script type="text/javascript" src="resources/js/move-top.js"></script>
+        <script type="text/javascript" src="resources/js/easing.js"></script>
+        <script type="text/javascript" src="resources/js/jquery.nivo.slider.js"></script>
+        <script type="text/javascript">
+            $(window).load(function () {
+                $('#slider').nivoSlider();
+            });
+        </script>
+    </h:head>
+
+    <h:body>
+
+        <div id="top" class="top">
+            <ui:insert name="top">
+                <div class="header">
+                    <div class="headertop_desc">
+                        <div class="wrap">
+                            <div class="nav_list">
+                                <ul>
+                                    <li><a href="#">Home</a></li>
+                                    <li><a href="#">Movie ticket</a></li>
+                                    <li><a href="#">Music show</a></li>
+                                    <li><a href="#">Drama ticket</a></li>
+                                    <li><a href="#">Sports ticket</a></li>
+                                </ul>
+                            </div>
+                            <div class="account_desc">
+                                <ul>
+                                    <li><a href="#">Register</a></li>
+                                    <li><a href="#">Login</a></li>
+                                    <li><a href="#">My Profile</a></li>
+                                    <li><a href="#">Contact Us</a></li>
+                                    <li><a href="#">FAQ's</a></li>
+                                </ul>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="wrap">
+                        <div class="header_top">
+                            <div class="logo">
+                                <a href="index.html"><img src="resources/images/mylogo.jpg" alt="" /></a>
+                            </div>
+                            <div class="header_top_right">
+                                <div class="search_box">
+                                    <form>
+                                        <input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {
+                                                    this.value = 'Search';
+                                                }"/><input type="submit" value=""/>
+                                    </form>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <script type="text/javascript">
+                                function DropDown(el) {
+                                    this.dd = el;
+                                    this.initEvents();
+                                }
+                                DropDown.prototype = {
+                                    initEvents: function () {
+                                        var obj = this;
+
+                                        obj.dd.on('click', function (event) {
+                                            $(this).toggleClass('active');
+                                            event.stopPropagation();
+                                        });
+                                    }
+                                }
+
+                                $(function () {
+
+                                    var dd = new DropDown($('#dd'));
+
+                                    $(document).click(function () {
+                                        // all dropdowns
+                                        $('.wrapper-dropdown-2').removeClass('active');
+                                    });
+
+                                });
+                            </script>
+                            <div class="clear"></div>
+                        </div>     
+                        <div class="header_bottom">
+                            <!-- Slider -->
+                            <div class="slider">
+                                <div class="slider-wrapper theme-default">
+                                    <div id="slider" class="nivoSlider">
+                                        <img src="resources/images/1.jpg" data-thumb="resources/images/1.jpg" alt="" />
+                                        <img src="resources/images/2.jpg" data-thumb="resources/images/2.jpg" alt="" />
+                                        <img src="resources/images/3.jpg" data-thumb="resources/images/3.jpg" alt="" />
+                                        <img src="resources/images/4.jpg" data-thumb="resources/images/4.jpg" alt="" />
+                                        <img src="resources/images/5.jpg" data-thumb="resources/images/5.jpg" alt="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End Slider -->
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+        
+        <!--End Header -->
+        </ui:insert>
+        </div>
+
+        <div id="content" class="center_content">
+            <ui:insert name="content">
+                <div class="main">
+                    <div class="wrap">
+                        <div class="content">
+                            <div class="content_top">
+                                <div class="heading">
+                                    <h3>Now playing</h3>
+                                </div>
+                            </div>
+                            <div class="section group">
+                                <div class="grid_1_of_5 images_1_of_5">
+                                    <a href="#"><img src="resources/images/end-game.jpg" alt="" /></a>
+                                    <h2><a href="#">End Game</a></h2>
+                                    <div class="price-details">
+                                        <div class="price-number">
+                                            <p><span class="rupees">$620.87</span></p>
+                                        </div>
+                                        <div class="add-cart">								
+                                            <h4><a href="#">Book now</a></h4>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>					 
+                                </div>
+                                <div class="grid_1_of_5 images_1_of_5">
+                                    <a href="#"><img src="resources/images/Sorority_Wars.jpg" alt="" /></a>
+                                    <h2><a href="#">Sorority Wars</a></h2>
+                                    <div class="price-details">
+                                        <div class="price-number">
+                                            <p><span class="rupees">$620.87</span></p>
+                                        </div>
+                                        <div class="add-cart">								
+                                            <h4><a href="#">Book now</a></h4>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+
+                                </div>
+                                <div class="grid_1_of_5 images_1_of_5">
+                                    <a href="#"><img src="resources/images/New-Moon-The-Score-cover-twilight.jpg" alt="" /></a>
+                                    <h2><a href="#">Twilight New Moon</a></h2>
+                                    <div class="price-details">
+                                        <div class="price-number">
+                                            <p><span class="rupees">$899.75</span></p>
+                                        </div>
+                                        <div class="add-cart">								
+                                            <h4><a href="#">Book now</a></h4>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+
+                                </div>
+                                <div class="grid_1_of_5 images_1_of_5">
+                                    <a href="#"><img src="resources/images/avatar_movie.jpg" alt="" /></a>
+                                    <h2><a href="#">Avatar</a></h2>
+                                    <div class="price-details">
+                                        <div class="price-number">
+                                            <p><span class="rupees">$599.00</span></p>
+                                        </div>
+                                        <div class="add-cart">								
+                                            <h4><a href="#">Book now</a></h4>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                                <div class="grid_1_of_5 images_1_of_5">
+                                    <a href="#"><img src="resources/images/black-swan.jpg" alt="" /></a>
+                                    <h2><a href="#">Black Swan</a></h2>
+                                    <div class="price-details">
+                                        <div class="price-number">
+                                            <p><span class="rupees">$679.87</span></p>
+                                        </div>
+                                        <div class="add-cart">								
+                                            <h4><a href="#">Book now</a></h4>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>				     
+                                </div>
+                            </div>
+                            <div class="content_bottom">
+                                <div class="heading">
+                                    <h3>Incoming</h3>
+                                </div>
+                            </div>
+                            <div class="section group">
+                                <div class="grid_1_of_5 images_1_of_5">
+                                    <a href="#"><img src="resources/images/beauty_and_the_beast.jpg" alt="" /></a>
+                                    <h2><a href="#">Beauty and the beast</a></h2>
+                                    <div class="price-details">
+                                        <div class="price-number">
+                                            <p><span class="rupees">$620.87</span></p>
+                                        </div>
+                                        <div class="add-cart">								
+                                            <h4><a href="#">Book now</a></h4>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+
+                                </div>
+                                <div class="grid_1_of_5 images_1_of_5">
+                                    <a href="#"><img src="resources/images/Eclipse.jpg" alt="" /></a>
+                                    <h2><a href="#">Eclipse</a></h2>
+                                    <div class="price-details">
+                                        <div class="price-number">
+                                            <p><span class="rupees">$620.87</span></p>
+                                        </div>
+                                        <div class="add-cart">								
+                                            <h4><a href="#">Book now</a></h4>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+
+                                </div>
+                                <div class="grid_1_of_5 images_1_of_5">
+                                    <a href="#"><img src="resources/images/Coraline.jpg" alt="" /></a>
+                                    <h2><a href="#">Coraline</a></h2>
+                                    <div class="price-details">
+                                        <div class="price-number">
+                                            <p><span class="rupees">$899.75</span></p>
+                                        </div>
+                                        <div class="add-cart">								
+                                            <h4><a href="#">Book now</a></h4>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+
+                                </div>
+                                <div class="grid_1_of_5 images_1_of_5">
+                                    <a href="#"><img src="resources/images/Unstoppable.jpg" alt="" /></a>
+                                    <h2><a href="#">Unstoppable</a></h2>
+                                    <div class="price-details">
+                                        <div class="price-number">
+                                            <p><span class="rupees">$599.00</span></p>
+                                        </div>
+                                        <div class="add-cart">								
+                                            <h4><a href="#">Book now</a></h4>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                                <div class="grid_1_of_5 images_1_of_5">
+                                    <a href="#"><img src="resources/images/Priest.jpg" alt="" /></a>
+                                    <h2><a href="#">Priest 3D</a></h2>
+                                    <div class="price-details">
+                                        <div class="price-number">
+                                            <p><span class="rupees">$679.87</span></p>
+                                        </div>
+                                        <div class="add-cart">								
+                                            <h4><a href="#">Book now</a></h4>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>				     
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ui:insert>
+        </div>
+
+        <div id="bottom" class="bottom">
+            <ui:insert name="bottom">
+                <div class="footer">   	  
+                    <div class="copy_right">
+                        <p>ShowBiz Company | <a href="#">EASYtickets.COM</a> </p>
+                    </div>			
+                </div>
+
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $().UItoTop({easingType: 'easeOutQuart'});
+
+                    });
+                </script>
+                <a href="#" id="toTop"><span id="toTopHover"> </span></a>
+            </ui:insert>
+        </div>
+
+    </h:body>
+
+</html>

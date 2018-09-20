@@ -1,15 +1,18 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     
   
-      <link href="resources/css/stylecust.css" rel="stylesheet" type="text/css"/>
-      <link href="resources/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+      <link href="resources/csscus/stylecust.css" rel="stylesheet" type="text/css"/>
+      <link href="resources/csscus/bootstrap.css" rel="stylesheet" type="text/css"/>
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
+    <ui:composition template="/easyTemplate.xhtml">
+        <ui:define name="content">
         <div id="page-wrapper">
             <div class="main-page signup-page">
                 <h2 class="title1">SignUp Here</h2>
@@ -63,6 +66,8 @@
                 </div>
             </div>
         </div>
-    </h:body>
+      </ui:define>
+    </ui:composition>
+ </h:body>
 </html>
 

@@ -40,6 +40,11 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Customer.findByPoit", query = "SELECT c FROM Customer c WHERE c.poit = :poit")})
 public class Customer implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private Collection<MovieSlotDetails> movieSlotDetailsCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private Collection<EventSlotDetails> eventSlotDetailsCollection;
+
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -211,6 +216,24 @@ public class Customer implements Serializable {
     @Override
     public String toString() {
         return "entities.Customer[ username=" + username + " ]";
+    }
+
+    @XmlTransient
+    public Collection<MovieSlotDetails> getMovieSlotDetailsCollection() {
+        return movieSlotDetailsCollection;
+    }
+
+    public void setMovieSlotDetailsCollection(Collection<MovieSlotDetails> movieSlotDetailsCollection) {
+        this.movieSlotDetailsCollection = movieSlotDetailsCollection;
+    }
+
+    @XmlTransient
+    public Collection<EventSlotDetails> getEventSlotDetailsCollection() {
+        return eventSlotDetailsCollection;
+    }
+
+    public void setEventSlotDetailsCollection(Collection<EventSlotDetails> eventSlotDetailsCollection) {
+        this.eventSlotDetailsCollection = eventSlotDetailsCollection;
     }
     
 }

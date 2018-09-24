@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Administrator
+ * @author Win-PC
  */
 @Stateless
 public class SportBookingFacade extends AbstractFacade<SportBooking> implements SportBookingFacadeLocal {

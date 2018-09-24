@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Administrator
+ * @author Win-PC
  */
 @Entity
 @Table(name = "Cinema")
@@ -61,7 +61,7 @@ public class Cinema implements Serializable {
     @Column(name = "Phone")
     private String phone;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cinemaID")
-    private Collection<Theater> theaterCollection;
+    private Collection<Room> roomCollection;
     @JoinColumn(name = "Area_ID", referencedColumnName = "Area_ID")
     @ManyToOne(optional = false)
     private Area areaID;
@@ -113,12 +113,12 @@ public class Cinema implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Theater> getTheaterCollection() {
-        return theaterCollection;
+    public Collection<Room> getRoomCollection() {
+        return roomCollection;
     }
 
-    public void setTheaterCollection(Collection<Theater> theaterCollection) {
-        this.theaterCollection = theaterCollection;
+    public void setRoomCollection(Collection<Room> roomCollection) {
+        this.roomCollection = roomCollection;
     }
 
     public Area getAreaID() {

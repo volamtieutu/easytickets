@@ -38,6 +38,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Cinema.findByPhone", query = "SELECT c FROM Cinema c WHERE c.phone = :phone")})
 public class Cinema implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cinemaID")
+    private Collection<Room> roomCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -152,6 +155,15 @@ public class Cinema implements Serializable {
     @Override
     public String toString() {
         return "entities.Cinema[ cinemaID=" + cinemaID + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Room> getRoomCollection() {
+        return roomCollection;
+    }
+
+    public void setRoomCollection(Collection<Room> roomCollection) {
+        this.roomCollection = roomCollection;
     }
     
 }

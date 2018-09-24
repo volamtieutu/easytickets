@@ -39,6 +39,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Place.findBySeat", query = "SELECT p FROM Place p WHERE p.seat = :seat")})
 public class Place implements Serializable {
 
+    @JoinColumn(name = "Seat_ID", referencedColumnName = "Seat_ID")
+    @ManyToOne(optional = false)
+    private PlaceSeat seatID;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -188,6 +192,14 @@ public class Place implements Serializable {
     @Override
     public String toString() {
         return "entities.Place[ placeID=" + placeID + " ]";
+    }
+
+    public PlaceSeat getSeatID() {
+        return seatID;
+    }
+
+    public void setSeatID(PlaceSeat seatID) {
+        this.seatID = seatID;
     }
     
 }

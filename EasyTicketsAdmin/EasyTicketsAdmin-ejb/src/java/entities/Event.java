@@ -41,6 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Event.findByImage", query = "SELECT e FROM Event e WHERE e.image = :image")})
 public class Event implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
+    private Collection<EventSlotDetails> eventSlotDetailsCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -221,6 +224,15 @@ public class Event implements Serializable {
     @Override
     public String toString() {
         return "entities.Event[ eventID=" + eventID + " ]";
+    }
+
+    @XmlTransient
+    public Collection<EventSlotDetails> getEventSlotDetailsCollection() {
+        return eventSlotDetailsCollection;
+    }
+
+    public void setEventSlotDetailsCollection(Collection<EventSlotDetails> eventSlotDetailsCollection) {
+        this.eventSlotDetailsCollection = eventSlotDetailsCollection;
     }
     
 }

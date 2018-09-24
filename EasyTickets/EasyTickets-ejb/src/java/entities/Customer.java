@@ -7,7 +7,6 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,8 +16,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -26,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Administrator
+ * @author Win-PC
  */
 @Entity
 @Table(name = "Customer")
@@ -44,11 +41,11 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "Customer_ID")
-    private int customerID;
-    @Id
+    private Integer customerID;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -66,9 +63,9 @@ public class Customer implements Serializable {
     private String name;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 10)
     @Column(name = "Birthday")
-    @Temporal(TemporalType.DATE)
-    private Date birthday;
+    private String birthday;
     @Size(max = 500)
     @Column(name = "Address")
     private String address;
@@ -78,33 +75,37 @@ public class Customer implements Serializable {
     private String phone;
     @Column(name = "Poit")
     private Integer poit;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "username")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private Collection<MovieSlotDetails> movieSlotDetailsCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private Collection<EventSlotDetails> eventSlotDetailsCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerID")
     private Collection<EventBooking> eventBookingCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "username")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerID")
     private Collection<MovieBooking> movieBookingCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "username")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerID")
     private Collection<SportBooking> sportBookingCollection;
 
     public Customer() {
     }
 
-    public Customer(String username) {
-        this.username = username;
+    public Customer(Integer customerID) {
+        this.customerID = customerID;
     }
 
-    public Customer(String username, int customerID, String password, String name, Date birthday) {
-        this.username = username;
+    public Customer(Integer customerID, String username, String password, String name, String birthday) {
         this.customerID = customerID;
+        this.username = username;
         this.password = password;
         this.name = name;
         this.birthday = birthday;
     }
 
-    public int getCustomerID() {
+    public Integer getCustomerID() {
         return customerID;
     }
 
-    public void setCustomerID(int customerID) {
+    public void setCustomerID(Integer customerID) {
         this.customerID = customerID;
     }
 
@@ -132,11 +133,11 @@ public class Customer implements Serializable {
         this.name = name;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
@@ -162,6 +163,24 @@ public class Customer implements Serializable {
 
     public void setPoit(Integer poit) {
         this.poit = poit;
+    }
+
+    @XmlTransient
+    public Collection<MovieSlotDetails> getMovieSlotDetailsCollection() {
+        return movieSlotDetailsCollection;
+    }
+
+    public void setMovieSlotDetailsCollection(Collection<MovieSlotDetails> movieSlotDetailsCollection) {
+        this.movieSlotDetailsCollection = movieSlotDetailsCollection;
+    }
+
+    @XmlTransient
+    public Collection<EventSlotDetails> getEventSlotDetailsCollection() {
+        return eventSlotDetailsCollection;
+    }
+
+    public void setEventSlotDetailsCollection(Collection<EventSlotDetails> eventSlotDetailsCollection) {
+        this.eventSlotDetailsCollection = eventSlotDetailsCollection;
     }
 
     @XmlTransient
@@ -194,7 +213,7 @@ public class Customer implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (username != null ? username.hashCode() : 0);
+        hash += (customerID != null ? customerID.hashCode() : 0);
         return hash;
     }
 
@@ -205,7 +224,7 @@ public class Customer implements Serializable {
             return false;
         }
         Customer other = (Customer) object;
-        if ((this.username == null && other.username != null) || (this.username != null && !this.username.equals(other.username))) {
+        if ((this.customerID == null && other.customerID != null) || (this.customerID != null && !this.customerID.equals(other.customerID))) {
             return false;
         }
         return true;
@@ -213,7 +232,7 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Customer[ username=" + username + " ]";
+        return "entities.Customer[ customerID=" + customerID + " ]";
     }
     
 }

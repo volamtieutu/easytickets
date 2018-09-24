@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Administrator
+ * @author Win-PC
  */
 @Stateless
 public class CinemaFacade extends AbstractFacade<Cinema> implements CinemaFacadeLocal {

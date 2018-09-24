@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Administrator
+ * @author Win-PC
  */
 @Stateless
 public class PlaceFacade extends AbstractFacade<Place> implements PlaceFacadeLocal {

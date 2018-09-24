@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  
+   xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+   
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <f:view>
+
+
+            <h:form>
+                
+                <h1><h:outputText value="Create/Edit"/></h1>
+                  <h:messages style="color: red"/>  
+                <h:panelGrid columns="2" border="1">
+                    <h:outputLabel value="Username:" for="username" />
+                    <h:inputText id="username" value="#{customersMB.userName}" title="Username" required="true" requiredMessage="The Username field is required."/>
+                  
+                    <h:outputLabel value="Password:" for="password" />
+                    <h:inputText id="password" value="#{customersMB.pasSword}" title="Password" required="true" requiredMessage="The Password field is required."/>
+                    <h:outputLabel value="Name:" for="name" />
+                    <h:inputText id="name" value="#{customersMB.namE}" title="Name" required="true" requiredMessage="The Name field is required."/>
+                    <h:outputLabel value="Birthday:" for="birthday" />
+                    <h:inputText id="birthday" value="#{customersMB.birthDay}" title="Birthday" required="true" requiredMessage="The Birthday field is required.">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="Address:" for="address" />
+                    <h:inputText id="address" value="#{customersMB.adDress}" title="Address" />
+                    <h:outputLabel value="Phone:" for="phone" />
+                    <h:inputText id="phone" value="#{customersMB.phonE}" title="Phone" />
+                    <h:commandButton value="Save" action="#{customersMB.addCustomers()}"/>
+                </h:panelGrid>
+             
+            </h:form>
+        </f:view>
+
+    </h:body>
+</html>
+

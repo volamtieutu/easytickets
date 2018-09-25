@@ -6,6 +6,10 @@
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     <body>
 
         <ui:composition template="./adminTemplate.xhtml">
@@ -49,7 +53,22 @@
                                         <option>4</option>
                                     </select>
                                 </div> 
-                            </div> 
+                                <div class="col-sm-2">
+                                    <div class="container">
+                                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">+</button> 
+                                        <div id="demo" class="collapse">
+                                            <label  class="col-sm-2 control-label">Area Name</label> 
+                                            <div class="col-sm-2"> 
+                                                <h:inputText  class="form-control" a:placeholder="Area name"/> 
+                                            </div> 
+                                            <div class="col-sm-2"> 
+                                                <button type="submit" class="btn btn-default">Add</button>
+                                            </div> 
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>                                                       
                             <div class="form-group"> 
                                 <label class="col-sm-2 control-label"></label> 
                                 <div class="col-sm-1"> 
@@ -64,29 +83,29 @@
 
                             </div>
                         </h:form> 
-                        
-                        <h:dataTable class="table table-bordered table-hover table-striped">
-                    <h:column>
-                        <f:facet name="header">ID</f:facet>
 
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Cinema Name</f:facet>
+                        <h:dataTable class="table table-bordered table-hover table-striped table-condensed">
+                            <h:column>
+                                <f:facet name="header">ID</f:facet>
 
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Cinema Address</f:facet>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Cinema Name</f:facet>
 
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Phone</f:facet>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Cinema Address</f:facet>
 
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Area</f:facet>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Phone</f:facet>
 
-                    </h:column>
-                </h:dataTable>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Area</f:facet>
+
+                            </h:column>
+                        </h:dataTable>
                     </div>
 
 

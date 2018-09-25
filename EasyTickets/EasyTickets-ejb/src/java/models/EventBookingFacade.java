@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Administrator
+ * @author Win-PC
  */
 @Stateless
 public class EventBookingFacade extends AbstractFacade<EventBooking> implements EventBookingFacadeLocal {

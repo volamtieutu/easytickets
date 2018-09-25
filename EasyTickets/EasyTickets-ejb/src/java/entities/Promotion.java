@@ -6,7 +6,6 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,15 +13,13 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Administrator
+ * @author Win-PC
  */
 @Entity
 @Table(name = "Promotion")
@@ -52,12 +49,12 @@ public class Promotion implements Serializable {
     @NotNull
     @Column(name = "Discount")
     private int discount;
+    @Size(max = 10)
     @Column(name = "Begin_Date")
-    @Temporal(TemporalType.DATE)
-    private Date beginDate;
+    private String beginDate;
+    @Size(max = 10)
     @Column(name = "End_Date")
-    @Temporal(TemporalType.DATE)
-    private Date endDate;
+    private String endDate;
     @Size(max = 1000)
     @Column(name = "Discription")
     private String discription;
@@ -99,19 +96,19 @@ public class Promotion implements Serializable {
         this.discount = discount;
     }
 
-    public Date getBeginDate() {
+    public String getBeginDate() {
         return beginDate;
     }
 
-    public void setBeginDate(Date beginDate) {
+    public void setBeginDate(String beginDate) {
         this.beginDate = beginDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 

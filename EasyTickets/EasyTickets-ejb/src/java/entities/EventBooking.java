@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Administrator
+ * @author Win-PC
  */
 @Entity
 @Table(name = "Event_Booking")
@@ -46,9 +46,9 @@ public class EventBooking implements Serializable {
     @NotNull
     @Column(name = "Amout_Of_Seat")
     private int amoutOfSeat;
-    @JoinColumn(name = "Username", referencedColumnName = "Username")
+    @JoinColumn(name = "Customer_ID", referencedColumnName = "Customer_ID")
     @ManyToOne(optional = false)
-    private Customer username;
+    private Customer customerID;
     @JoinColumn(name = "Event_ID", referencedColumnName = "Event_ID")
     @ManyToOne(optional = false)
     private Event eventID;
@@ -93,12 +93,12 @@ public class EventBooking implements Serializable {
         this.amoutOfSeat = amoutOfSeat;
     }
 
-    public Customer getUsername() {
-        return username;
+    public Customer getCustomerID() {
+        return customerID;
     }
 
-    public void setUsername(Customer username) {
-        this.username = username;
+    public void setCustomerID(Customer customerID) {
+        this.customerID = customerID;
     }
 
     public Event getEventID() {

@@ -7,7 +7,6 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,8 +16,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -26,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Administrator
+ * @author Win-PC
  */
 @Entity
 @Table(name = "Movie")
@@ -95,14 +92,14 @@ public class Movie implements Serializable {
     private int ticketPrice;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 10)
     @Column(name = "Begin_Date")
-    @Temporal(TemporalType.DATE)
-    private Date beginDate;
+    private String beginDate;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 10)
     @Column(name = "End_Date")
-    @Temporal(TemporalType.DATE)
-    private Date endDate;
+    private String endDate;
     @Basic(optional = false)
     @NotNull
     @Column(name = "Point")
@@ -118,6 +115,8 @@ public class Movie implements Serializable {
     @Size(max = 500)
     @Column(name = "Media")
     private String media;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "movie")
+    private Collection<MovieSlotDetails> movieSlotDetailsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "movieID")
     private Collection<MovieBooking> movieBookingCollection;
 
@@ -128,7 +127,7 @@ public class Movie implements Serializable {
         this.movieID = movieID;
     }
 
-    public Movie(Integer movieID, String movieName, String genre, String language, int rated, String cast, String director, int runTime, int ticketPrice, Date beginDate, Date endDate, int point, String description) {
+    public Movie(Integer movieID, String movieName, String genre, String language, int rated, String cast, String director, int runTime, int ticketPrice, String beginDate, String endDate, int point, String description) {
         this.movieID = movieID;
         this.movieName = movieName;
         this.genre = genre;
@@ -216,19 +215,19 @@ public class Movie implements Serializable {
         this.ticketPrice = ticketPrice;
     }
 
-    public Date getBeginDate() {
+    public String getBeginDate() {
         return beginDate;
     }
 
-    public void setBeginDate(Date beginDate) {
+    public void setBeginDate(String beginDate) {
         this.beginDate = beginDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
@@ -262,6 +261,15 @@ public class Movie implements Serializable {
 
     public void setMedia(String media) {
         this.media = media;
+    }
+
+    @XmlTransient
+    public Collection<MovieSlotDetails> getMovieSlotDetailsCollection() {
+        return movieSlotDetailsCollection;
+    }
+
+    public void setMovieSlotDetailsCollection(Collection<MovieSlotDetails> movieSlotDetailsCollection) {
+        this.movieSlotDetailsCollection = movieSlotDetailsCollection;
     }
 
     @XmlTransient

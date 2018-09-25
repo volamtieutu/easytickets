@@ -32,6 +32,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "SportBooking.findByAmountOfSeat", query = "SELECT s FROM SportBooking s WHERE s.amountOfSeat = :amountOfSeat")})
 public class SportBooking implements Serializable {
 
+    @JoinColumn(name = "Customer_ID", referencedColumnName = "Customer_ID")
+    @ManyToOne(optional = false)
+    private Customer customerID;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -140,6 +144,14 @@ public class SportBooking implements Serializable {
     @Override
     public String toString() {
         return "entities.SportBooking[ bookingID=" + bookingID + " ]";
+    }
+
+    public Customer getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(Customer customerID) {
+        this.customerID = customerID;
     }
     
 }

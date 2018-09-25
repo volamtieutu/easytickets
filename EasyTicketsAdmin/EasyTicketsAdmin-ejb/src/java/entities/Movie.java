@@ -47,6 +47,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Movie.findByMedia", query = "SELECT m FROM Movie m WHERE m.media = :media")})
 public class Movie implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "movie")
+    private Collection<MovieSlotDetails> movieSlotDetailsCollection;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -293,6 +296,15 @@ public class Movie implements Serializable {
     @Override
     public String toString() {
         return "entities.Movie[ movieID=" + movieID + " ]";
+    }
+
+    @XmlTransient
+    public Collection<MovieSlotDetails> getMovieSlotDetailsCollection() {
+        return movieSlotDetailsCollection;
+    }
+
+    public void setMovieSlotDetailsCollection(Collection<MovieSlotDetails> movieSlotDetailsCollection) {
+        this.movieSlotDetailsCollection = movieSlotDetailsCollection;
     }
     
 }

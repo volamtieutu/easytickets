@@ -11,7 +11,7 @@ import javax.ejb.Local;
 
 /**
  *
- * @author Administrator
+ * @author Win-PC
  */
 @Local
 public interface MovieBookingFacadeLocal {

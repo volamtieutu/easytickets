@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Administrator
+ * @author Win-PC
  */
 @Entity
 @Table(name = "Place")
@@ -35,8 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Place.findByPlaceID", query = "SELECT p FROM Place p WHERE p.placeID = :placeID")
     , @NamedQuery(name = "Place.findByPlaceName", query = "SELECT p FROM Place p WHERE p.placeName = :placeName")
     , @NamedQuery(name = "Place.findByPlaceAddress", query = "SELECT p FROM Place p WHERE p.placeAddress = :placeAddress")
-    , @NamedQuery(name = "Place.findByPhone", query = "SELECT p FROM Place p WHERE p.phone = :phone")
-    , @NamedQuery(name = "Place.findBySeat", query = "SELECT p FROM Place p WHERE p.seat = :seat")})
+    , @NamedQuery(name = "Place.findByPhone", query = "SELECT p FROM Place p WHERE p.phone = :phone")})
 public class Place implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -61,12 +60,6 @@ public class Place implements Serializable {
     @Size(min = 1, max = 15)
     @Column(name = "Phone")
     private String phone;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "Seat")
-    private int seat;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "place")
-    private Collection<ShowtimeOfEvent> showtimeOfEventCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "placeID")
     private Collection<EventBooking> eventBookingCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "placeID")
@@ -74,6 +67,9 @@ public class Place implements Serializable {
     @JoinColumn(name = "Area_ID", referencedColumnName = "Area_ID")
     @ManyToOne(optional = false)
     private Area areaID;
+    @JoinColumn(name = "Seat_ID", referencedColumnName = "Seat_ID")
+    @ManyToOne(optional = false)
+    private PlaceSeat seatID;
 
     public Place() {
     }
@@ -82,12 +78,11 @@ public class Place implements Serializable {
         this.placeID = placeID;
     }
 
-    public Place(Integer placeID, String placeName, String placeAddress, String phone, int seat) {
+    public Place(Integer placeID, String placeName, String placeAddress, String phone) {
         this.placeID = placeID;
         this.placeName = placeName;
         this.placeAddress = placeAddress;
         this.phone = phone;
-        this.seat = seat;
     }
 
     public Integer getPlaceID() {
@@ -122,23 +117,6 @@ public class Place implements Serializable {
         this.phone = phone;
     }
 
-    public int getSeat() {
-        return seat;
-    }
-
-    public void setSeat(int seat) {
-        this.seat = seat;
-    }
-
-    @XmlTransient
-    public Collection<ShowtimeOfEvent> getShowtimeOfEventCollection() {
-        return showtimeOfEventCollection;
-    }
-
-    public void setShowtimeOfEventCollection(Collection<ShowtimeOfEvent> showtimeOfEventCollection) {
-        this.showtimeOfEventCollection = showtimeOfEventCollection;
-    }
-
     @XmlTransient
     public Collection<EventBooking> getEventBookingCollection() {
         return eventBookingCollection;
@@ -163,6 +141,14 @@ public class Place implements Serializable {
 
     public void setAreaID(Area areaID) {
         this.areaID = areaID;
+    }
+
+    public PlaceSeat getSeatID() {
+        return seatID;
+    }
+
+    public void setSeatID(PlaceSeat seatID) {
+        this.seatID = seatID;
     }
 
     @Override

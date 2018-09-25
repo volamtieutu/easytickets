@@ -7,7 +7,6 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,8 +16,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -26,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Administrator
+ * @author Win-PC
  */
 @Entity
 @Table(name = "Event")
@@ -62,9 +59,9 @@ public class Event implements Serializable {
     private String eventType;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 10)
     @Column(name = "Begin_Date")
-    @Temporal(TemporalType.DATE)
-    private Date beginDate;
+    private String beginDate;
     @Basic(optional = false)
     @NotNull
     @Column(name = "Run_Time")
@@ -88,7 +85,7 @@ public class Event implements Serializable {
     @Column(name = "Image")
     private String image;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
-    private Collection<ShowtimeOfEvent> showtimeOfEventCollection;
+    private Collection<EventSlotDetails> eventSlotDetailsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "eventID")
     private Collection<EventBooking> eventBookingCollection;
 
@@ -99,7 +96,7 @@ public class Event implements Serializable {
         this.eventID = eventID;
     }
 
-    public Event(Integer eventID, String eventName, String eventType, Date beginDate, int runTime, int ticketPrice, int point, String description, String image) {
+    public Event(Integer eventID, String eventName, String eventType, String beginDate, int runTime, int ticketPrice, int point, String description, String image) {
         this.eventID = eventID;
         this.eventName = eventName;
         this.eventType = eventType;
@@ -135,11 +132,11 @@ public class Event implements Serializable {
         this.eventType = eventType;
     }
 
-    public Date getBeginDate() {
+    public String getBeginDate() {
         return beginDate;
     }
 
-    public void setBeginDate(Date beginDate) {
+    public void setBeginDate(String beginDate) {
         this.beginDate = beginDate;
     }
 
@@ -184,12 +181,12 @@ public class Event implements Serializable {
     }
 
     @XmlTransient
-    public Collection<ShowtimeOfEvent> getShowtimeOfEventCollection() {
-        return showtimeOfEventCollection;
+    public Collection<EventSlotDetails> getEventSlotDetailsCollection() {
+        return eventSlotDetailsCollection;
     }
 
-    public void setShowtimeOfEventCollection(Collection<ShowtimeOfEvent> showtimeOfEventCollection) {
-        this.showtimeOfEventCollection = showtimeOfEventCollection;
+    public void setEventSlotDetailsCollection(Collection<EventSlotDetails> eventSlotDetailsCollection) {
+        this.eventSlotDetailsCollection = eventSlotDetailsCollection;
     }
 
     @XmlTransient

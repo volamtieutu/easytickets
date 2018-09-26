@@ -9,7 +9,6 @@ import entities.Movie;
 import java.util.Date;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import models.MovieFacadeLocal;
 
@@ -18,11 +17,11 @@ import models.MovieFacadeLocal;
  * @author Win-PC
  */
 @Named(value = "movieMB")
-@Dependent
+@RequestScoped
 public class movieMB {
 
     @EJB
-    private MovieFacadeLocal movieFacade;
+    private MovieFacadeLocal movieFacade;   
 
     /**
      * Creates a new instance of movieMB
@@ -30,7 +29,7 @@ public class movieMB {
     private String movieName;
     private String genre;
     private String language;
-    private String rated;
+    private int rated;
     private String cast;
     private String director;
     private int runTime;
@@ -41,6 +40,23 @@ public class movieMB {
     private String description;
     private String image;
     private String media;
+
+    public movieMB(String movieName, String genre, String language, int rated, String director, int runTime, int ticketPrice, Date beginDate, Date endDate, int point, String description, String image, String media) {
+        this.movieName = movieName;
+        this.genre = genre;
+        this.language = language;
+        this.rated = rated;
+        this.director = director;
+        this.runTime = runTime;
+        this.ticketPrice = ticketPrice;
+        this.beginDate = beginDate;
+        this.endDate = endDate;
+        this.point = point;
+        this.description = description;
+        this.image = image;
+        this.media = media;
+    }
+
     public movieMB() {
     }
 
@@ -52,14 +68,6 @@ public class movieMB {
         this.movieName = movieName;
     }
 
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
     public String getLanguage() {
         return language;
     }
@@ -68,11 +76,11 @@ public class movieMB {
         this.language = language;
     }
 
-    public String getRated() {
+    public int getRated() {
         return rated;
     }
 
-    public void setRated(String rated) {
+    public void setRated(int rated) {
         this.rated = rated;
     }
 
@@ -155,9 +163,16 @@ public class movieMB {
     public void setMedia(String media) {
         this.media = media;
     }
-    
-    @RequestScoped
-    public void insertMovieInfo() {
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }    
+
+    public String insertMovieInfo(){
         Movie m = new Movie();
         m.setMovieName(movieName);
         m.setGenre(genre);
@@ -167,12 +182,16 @@ public class movieMB {
         m.setDirector(director);
         m.setRunTime(runTime);
         m.setTicketPrice(ticketPrice);
-//        m.setBeginDate(beginDate);
-//        m.setEndDate(endDate);
+        m.setBeginDate(movieFacade.convertBDate(beginDate));
+        m.setEndDate(movieFacade.convertEDate(endDate));
         m.setPoint(point);
         m.setDescription(description);
         m.setImage(image);
         m.setMedia(media);
-        movieFacade.create(m);        
+        movieFacade.create(m);
+//        System.out.println(movieName);
+//        System.out.println(movieFacade.convertBDate(beginDate));
+//        System.out.println(movieFacade.convertBDate(endDate));
+        return "frInsertMovie";
     }
 }

@@ -32,10 +32,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "EventBooking.findByAmoutOfSeat", query = "SELECT e FROM EventBooking e WHERE e.amoutOfSeat = :amoutOfSeat")})
 public class EventBooking implements Serializable {
 
-    @JoinColumn(name = "Customer_ID", referencedColumnName = "Customer_ID")
-    @ManyToOne(optional = false)
-    private Customer customerID;
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -50,9 +46,9 @@ public class EventBooking implements Serializable {
     @NotNull
     @Column(name = "Amout_Of_Seat")
     private int amoutOfSeat;
-    @JoinColumn(name = "Username", referencedColumnName = "Username")
+    @JoinColumn(name = "Customer_ID", referencedColumnName = "Customer_ID")
     @ManyToOne(optional = false)
-    private Customer username;
+    private Customer customerID;
     @JoinColumn(name = "Event_ID", referencedColumnName = "Event_ID")
     @ManyToOne(optional = false)
     private Event eventID;
@@ -97,12 +93,12 @@ public class EventBooking implements Serializable {
         this.amoutOfSeat = amoutOfSeat;
     }
 
-    public Customer getUsername() {
-        return username;
+    public Customer getCustomerID() {
+        return customerID;
     }
 
-    public void setUsername(Customer username) {
-        this.username = username;
+    public void setCustomerID(Customer customerID) {
+        this.customerID = customerID;
     }
 
     public Event getEventID() {
@@ -144,14 +140,6 @@ public class EventBooking implements Serializable {
     @Override
     public String toString() {
         return "entities.EventBooking[ bookingID=" + bookingID + " ]";
-    }
-
-    public Customer getCustomerID() {
-        return customerID;
-    }
-
-    public void setCustomerID(Customer customerID) {
-        this.customerID = customerID;
     }
     
 }

@@ -32,10 +32,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "SportBooking.findByAmountOfSeat", query = "SELECT s FROM SportBooking s WHERE s.amountOfSeat = :amountOfSeat")})
 public class SportBooking implements Serializable {
 
-    @JoinColumn(name = "Customer_ID", referencedColumnName = "Customer_ID")
-    @ManyToOne(optional = false)
-    private Customer customerID;
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -50,9 +46,9 @@ public class SportBooking implements Serializable {
     @NotNull
     @Column(name = "Amount_Of_Seat")
     private int amountOfSeat;
-    @JoinColumn(name = "Username", referencedColumnName = "Username")
+    @JoinColumn(name = "Customer_ID", referencedColumnName = "Customer_ID")
     @ManyToOne(optional = false)
-    private Customer username;
+    private Customer customerID;
     @JoinColumn(name = "Place_ID", referencedColumnName = "Place_ID")
     @ManyToOne(optional = false)
     private Place placeID;
@@ -97,12 +93,12 @@ public class SportBooking implements Serializable {
         this.amountOfSeat = amountOfSeat;
     }
 
-    public Customer getUsername() {
-        return username;
+    public Customer getCustomerID() {
+        return customerID;
     }
 
-    public void setUsername(Customer username) {
-        this.username = username;
+    public void setCustomerID(Customer customerID) {
+        this.customerID = customerID;
     }
 
     public Place getPlaceID() {
@@ -144,14 +140,6 @@ public class SportBooking implements Serializable {
     @Override
     public String toString() {
         return "entities.SportBooking[ bookingID=" + bookingID + " ]";
-    }
-
-    public Customer getCustomerID() {
-        return customerID;
-    }
-
-    public void setCustomerID(Customer customerID) {
-        this.customerID = customerID;
     }
     
 }

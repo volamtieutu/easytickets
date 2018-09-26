@@ -55,7 +55,9 @@ public class Promotion implements Serializable {
     @Size(max = 10)
     @Column(name = "End_Date")
     private String endDate;
-    @Size(max = 1000)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 1000)
     @Column(name = "Discription")
     private String discription;
 
@@ -66,10 +68,11 @@ public class Promotion implements Serializable {
         this.promotionID = promotionID;
     }
 
-    public Promotion(Integer promotionID, String promotionName, int discount) {
+    public Promotion(Integer promotionID, String promotionName, int discount, String discription) {
         this.promotionID = promotionID;
         this.promotionName = promotionName;
         this.discount = discount;
+        this.discription = discription;
     }
 
     public Integer getPromotionID() {

@@ -41,9 +41,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Event.findByImage", query = "SELECT e FROM Event e WHERE e.image = :image")})
 public class Event implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
-    private Collection<EventSlotDetails> eventSlotDetailsCollection;
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -88,7 +85,7 @@ public class Event implements Serializable {
     @Column(name = "Image")
     private String image;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
-    private Collection<ShowtimeOfEvent> showtimeOfEventCollection;
+    private Collection<EventSlotDetails> eventSlotDetailsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "eventID")
     private Collection<EventBooking> eventBookingCollection;
 
@@ -184,12 +181,12 @@ public class Event implements Serializable {
     }
 
     @XmlTransient
-    public Collection<ShowtimeOfEvent> getShowtimeOfEventCollection() {
-        return showtimeOfEventCollection;
+    public Collection<EventSlotDetails> getEventSlotDetailsCollection() {
+        return eventSlotDetailsCollection;
     }
 
-    public void setShowtimeOfEventCollection(Collection<ShowtimeOfEvent> showtimeOfEventCollection) {
-        this.showtimeOfEventCollection = showtimeOfEventCollection;
+    public void setEventSlotDetailsCollection(Collection<EventSlotDetails> eventSlotDetailsCollection) {
+        this.eventSlotDetailsCollection = eventSlotDetailsCollection;
     }
 
     @XmlTransient
@@ -224,15 +221,6 @@ public class Event implements Serializable {
     @Override
     public String toString() {
         return "entities.Event[ eventID=" + eventID + " ]";
-    }
-
-    @XmlTransient
-    public Collection<EventSlotDetails> getEventSlotDetailsCollection() {
-        return eventSlotDetailsCollection;
-    }
-
-    public void setEventSlotDetailsCollection(Collection<EventSlotDetails> eventSlotDetailsCollection) {
-        this.eventSlotDetailsCollection = eventSlotDetailsCollection;
     }
     
 }

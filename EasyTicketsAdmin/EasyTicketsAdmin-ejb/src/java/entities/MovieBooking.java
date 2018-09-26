@@ -32,13 +32,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "MovieBooking.findByAmoutOfPayment", query = "SELECT m FROM MovieBooking m WHERE m.amoutOfPayment = :amoutOfPayment")})
 public class MovieBooking implements Serializable {
 
-    @JoinColumn(name = "Customer_ID", referencedColumnName = "Customer_ID")
-    @ManyToOne(optional = false)
-    private Customer customerID;
-    @JoinColumn(name = "Room_ID", referencedColumnName = "Room_ID")
-    @ManyToOne(optional = false)
-    private Room roomID;
-
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -53,15 +46,15 @@ public class MovieBooking implements Serializable {
     @NotNull
     @Column(name = "Amout_Of_Payment")
     private int amoutOfPayment;
-    @JoinColumn(name = "Username", referencedColumnName = "Username")
+    @JoinColumn(name = "Customer_ID", referencedColumnName = "Customer_ID")
     @ManyToOne(optional = false)
-    private Customer username;
+    private Customer customerID;
     @JoinColumn(name = "Movie_ID", referencedColumnName = "Movie_ID")
     @ManyToOne(optional = false)
     private Movie movieID;
-    @JoinColumn(name = "Theater_ID", referencedColumnName = "Theater_ID")
+    @JoinColumn(name = "Room_ID", referencedColumnName = "Room_ID")
     @ManyToOne(optional = false)
-    private Theater theaterID;
+    private Room roomID;
 
     public MovieBooking() {
     }
@@ -100,12 +93,12 @@ public class MovieBooking implements Serializable {
         this.amoutOfPayment = amoutOfPayment;
     }
 
-    public Customer getUsername() {
-        return username;
+    public Customer getCustomerID() {
+        return customerID;
     }
 
-    public void setUsername(Customer username) {
-        this.username = username;
+    public void setCustomerID(Customer customerID) {
+        this.customerID = customerID;
     }
 
     public Movie getMovieID() {
@@ -116,12 +109,12 @@ public class MovieBooking implements Serializable {
         this.movieID = movieID;
     }
 
-    public Theater getTheaterID() {
-        return theaterID;
+    public Room getRoomID() {
+        return roomID;
     }
 
-    public void setTheaterID(Theater theaterID) {
-        this.theaterID = theaterID;
+    public void setRoomID(Room roomID) {
+        this.roomID = roomID;
     }
 
     @Override
@@ -147,22 +140,6 @@ public class MovieBooking implements Serializable {
     @Override
     public String toString() {
         return "entities.MovieBooking[ bookingID=" + bookingID + " ]";
-    }
-
-    public Customer getCustomerID() {
-        return customerID;
-    }
-
-    public void setCustomerID(Customer customerID) {
-        this.customerID = customerID;
-    }
-
-    public Room getRoomID() {
-        return roomID;
-    }
-
-    public void setRoomID(Room roomID) {
-        this.roomID = roomID;
     }
     
 }

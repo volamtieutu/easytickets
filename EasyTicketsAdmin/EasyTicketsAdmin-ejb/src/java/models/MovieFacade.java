@@ -6,6 +6,8 @@
 package models;
 
 import entities.Movie;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,5 +30,30 @@ public class MovieFacade extends AbstractFacade<Movie> implements MovieFacadeLoc
     public MovieFacade() {
         super(Movie.class);
     }
-    
+
+    @Override
+    public String convertBDate(Date begin) {
+        String dateString = null;
+        SimpleDateFormat sdfr = new SimpleDateFormat("yyyy-MM-dd");
+        
+        try {
+            dateString = sdfr.format(begin);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return dateString;
+    }
+
+    @Override
+    public String convertEDate(Date end) {
+        String dateString = null;
+        SimpleDateFormat sdfr = new SimpleDateFormat("yyyy-MM-dd");
+        
+        try {
+            dateString = sdfr.format(end);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return dateString;
+    }
 }

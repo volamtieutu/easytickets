@@ -40,17 +40,12 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Customer.findByPoit", query = "SELECT c FROM Customer c WHERE c.poit = :poit")})
 public class Customer implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
-    private Collection<MovieSlotDetails> movieSlotDetailsCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
-    private Collection<EventSlotDetails> eventSlotDetailsCollection;
-
     private static final long serialVersionUID = 1L;
+    @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "Customer_ID")
-    private int customerID;
-    @Id
+    private Integer customerID;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -80,33 +75,37 @@ public class Customer implements Serializable {
     private String phone;
     @Column(name = "Poit")
     private Integer poit;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "username")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private Collection<MovieSlotDetails> movieSlotDetailsCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private Collection<EventSlotDetails> eventSlotDetailsCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerID")
     private Collection<EventBooking> eventBookingCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "username")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerID")
     private Collection<MovieBooking> movieBookingCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "username")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerID")
     private Collection<SportBooking> sportBookingCollection;
 
     public Customer() {
     }
 
-    public Customer(String username) {
-        this.username = username;
+    public Customer(Integer customerID) {
+        this.customerID = customerID;
     }
 
-    public Customer(String username, int customerID, String password, String name, String birthday) {
-        this.username = username;
+    public Customer(Integer customerID, String username, String password, String name, String birthday) {
         this.customerID = customerID;
+        this.username = username;
         this.password = password;
         this.name = name;
         this.birthday = birthday;
     }
 
-    public int getCustomerID() {
+    public Integer getCustomerID() {
         return customerID;
     }
 
-    public void setCustomerID(int customerID) {
+    public void setCustomerID(Integer customerID) {
         this.customerID = customerID;
     }
 
@@ -167,6 +166,24 @@ public class Customer implements Serializable {
     }
 
     @XmlTransient
+    public Collection<MovieSlotDetails> getMovieSlotDetailsCollection() {
+        return movieSlotDetailsCollection;
+    }
+
+    public void setMovieSlotDetailsCollection(Collection<MovieSlotDetails> movieSlotDetailsCollection) {
+        this.movieSlotDetailsCollection = movieSlotDetailsCollection;
+    }
+
+    @XmlTransient
+    public Collection<EventSlotDetails> getEventSlotDetailsCollection() {
+        return eventSlotDetailsCollection;
+    }
+
+    public void setEventSlotDetailsCollection(Collection<EventSlotDetails> eventSlotDetailsCollection) {
+        this.eventSlotDetailsCollection = eventSlotDetailsCollection;
+    }
+
+    @XmlTransient
     public Collection<EventBooking> getEventBookingCollection() {
         return eventBookingCollection;
     }
@@ -196,7 +213,7 @@ public class Customer implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (username != null ? username.hashCode() : 0);
+        hash += (customerID != null ? customerID.hashCode() : 0);
         return hash;
     }
 
@@ -207,7 +224,7 @@ public class Customer implements Serializable {
             return false;
         }
         Customer other = (Customer) object;
-        if ((this.username == null && other.username != null) || (this.username != null && !this.username.equals(other.username))) {
+        if ((this.customerID == null && other.customerID != null) || (this.customerID != null && !this.customerID.equals(other.customerID))) {
             return false;
         }
         return true;
@@ -215,25 +232,7 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Customer[ username=" + username + " ]";
-    }
-
-    @XmlTransient
-    public Collection<MovieSlotDetails> getMovieSlotDetailsCollection() {
-        return movieSlotDetailsCollection;
-    }
-
-    public void setMovieSlotDetailsCollection(Collection<MovieSlotDetails> movieSlotDetailsCollection) {
-        this.movieSlotDetailsCollection = movieSlotDetailsCollection;
-    }
-
-    @XmlTransient
-    public Collection<EventSlotDetails> getEventSlotDetailsCollection() {
-        return eventSlotDetailsCollection;
-    }
-
-    public void setEventSlotDetailsCollection(Collection<EventSlotDetails> eventSlotDetailsCollection) {
-        this.eventSlotDetailsCollection = eventSlotDetailsCollection;
+        return "entities.Customer[ customerID=" + customerID + " ]";
     }
     
 }

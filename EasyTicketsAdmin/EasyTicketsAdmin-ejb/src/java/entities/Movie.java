@@ -7,10 +7,13 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -47,13 +50,11 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Movie.findByMedia", query = "SELECT m FROM Movie m WHERE m.media = :media")})
 public class Movie implements Serializable {
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "movie")
-    private Collection<MovieSlotDetails> movieSlotDetailsCollection;
-
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
+//    @Basic(optional = false)
+//    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Movie_ID")
     private Integer movieID;
     @Basic(optional = false)
@@ -118,6 +119,8 @@ public class Movie implements Serializable {
     @Size(max = 500)
     @Column(name = "Media")
     private String media;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "movie")
+    private Collection<MovieSlotDetails> movieSlotDetailsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "movieID")
     private Collection<MovieBooking> movieBookingCollection;
 
@@ -265,6 +268,15 @@ public class Movie implements Serializable {
     }
 
     @XmlTransient
+    public Collection<MovieSlotDetails> getMovieSlotDetailsCollection() {
+        return movieSlotDetailsCollection;
+    }
+
+    public void setMovieSlotDetailsCollection(Collection<MovieSlotDetails> movieSlotDetailsCollection) {
+        this.movieSlotDetailsCollection = movieSlotDetailsCollection;
+    }
+
+    @XmlTransient
     public Collection<MovieBooking> getMovieBookingCollection() {
         return movieBookingCollection;
     }
@@ -297,14 +309,4 @@ public class Movie implements Serializable {
     public String toString() {
         return "entities.Movie[ movieID=" + movieID + " ]";
     }
-
-    @XmlTransient
-    public Collection<MovieSlotDetails> getMovieSlotDetailsCollection() {
-        return movieSlotDetailsCollection;
-    }
-
-    public void setMovieSlotDetailsCollection(Collection<MovieSlotDetails> movieSlotDetailsCollection) {
-        this.movieSlotDetailsCollection = movieSlotDetailsCollection;
-    }
-    
 }

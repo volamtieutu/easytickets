@@ -19,6 +19,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/adminTemplate.xhtml</welcome-file>
+        <welcome-file>faces/frInsertMovie.xhtml</welcome-file>
     </welcome-file-list>
 </web-app>

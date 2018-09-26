@@ -6,6 +6,7 @@
 package models;
 
 import entities.Movie;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +30,9 @@ public interface MovieFacadeLocal {
     List<Movie> findRange(int[] range);
 
     int count();
+
+    public String convertBDate(Date begin);
+
+    public String convertEDate(Date end);
     
 }

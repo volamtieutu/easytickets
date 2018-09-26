@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"/>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"/>
+
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker3.min.css"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"/>
+    </h:head>
+    <h:body>
+        <h1>New Movie Information</h1>
+
+        <h4>Add New</h4>
+
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Movie name:"/>
+                <h:inputText class="form-control" value="#{movieMB.movieName}"/>
+
+                <h:outputLabel value="Genre:"/>                                                
+                <h:inputText class="form-control" value="#{movieMB.genre}"/>                                  
+
+
+                <h:outputLabel value="Language:"/>                                                
+                <h:inputText class="form-control" value="#{movieMB.language}"/>
+
+
+                <h:outputLabel value="Rated:"/>                                                
+                <h:inputText class="form-control" value="#{movieMB.rated}"/>
+
+
+                <h:outputLabel value="Cast:"/>                                                
+                <h:inputText class="form-control" value="#{movieMB.cast}"/>
+
+
+                <h:outputLabel value="Director:"/>
+                <h:inputText class="form-control" value="#{movieMB.director}"/>
+
+
+                <h:outputLabel value="Run time:"/>
+                <h:inputText class="form-control" value="#{movieMB.runTime}" />
+
+
+                <h:outputLabel value="Point:"/>
+                <h:inputText class="form-control" value="#{movieMB.point}" />
+
+
+                <h:outputLabel value="Ticket price:"/>                
+                <h:inputText class="form-control" style="display: inline" value="#{movieMB.ticketPrice}"/>
+
+
+                <h:outputLabel value="Begin Date"/>
+                <h:inputText class="form-control" value="#{movieMB.beginDate}">
+                    <f:convertDateTime pattern="yyyy-MM-dd"/>
+                </h:inputText>                
+
+                <h:outputLabel value="End Date"/>
+                <h:inputText class="form-control" value="#{movieMB.endDate}">
+                    <f:convertDateTime pattern="yyyy-MM-dd"/>
+                </h:inputText>
+
+
+                <h:outputLabel value="Description: "/>
+                <h:inputTextarea class="form-control" value="#{movieMB.description}" rows="4"/>
+
+
+                <h:outputLabel value="Image: "/>
+                <h:inputText class="form-control" value="#{movieMB.image}"/>
+
+
+                <h:outputLabel value="Trailer: "/> 
+                <h:inputText class="form-control" value="#{movieMB.media}"/>
+
+                <h:outputLabel value=""/> 
+                <h:commandButton value="Submit" action="#{movieMB.insertMovieInfo()}"/>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+

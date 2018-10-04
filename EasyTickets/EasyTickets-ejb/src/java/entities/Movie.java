@@ -7,6 +7,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -94,12 +95,12 @@ public class Movie implements Serializable {
     @NotNull
     @Size(min = 1, max = 10)
     @Column(name = "Begin_Date")
-    private String beginDate;
+    private Date beginDate;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
     @Column(name = "End_Date")
-    private String endDate;
+    private Date endDate;
     @Basic(optional = false)
     @NotNull
     @Column(name = "Point")
@@ -127,7 +128,7 @@ public class Movie implements Serializable {
         this.movieID = movieID;
     }
 
-    public Movie(Integer movieID, String movieName, String genre, String language, int rated, String cast, String director, int runTime, int ticketPrice, String beginDate, String endDate, int point, String description) {
+    public Movie(Integer movieID, String movieName, String genre, String language, int rated, String cast, String director, int runTime, int ticketPrice, Date beginDate, Date endDate, int point, String description) {
         this.movieID = movieID;
         this.movieName = movieName;
         this.genre = genre;
@@ -215,19 +216,19 @@ public class Movie implements Serializable {
         this.ticketPrice = ticketPrice;
     }
 
-    public String getBeginDate() {
+    public Date getBeginDate() {
         return beginDate;
     }
 
-    public void setBeginDate(String beginDate) {
+    public void setBeginDate(Date beginDate) {
         this.beginDate = beginDate;
     }
 
-    public String getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 

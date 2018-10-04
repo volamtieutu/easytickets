@@ -2,7 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
         <title>EASYtickets.COM</title>
@@ -10,7 +12,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
         <link href="resources/css/style.css" rel="stylesheet" type="text/css" media="all"/>
         <link href="resources/css/slider.css" rel="stylesheet" type="text/css" media="all"/>
-        <script type="text/javascript" src="resources/js/jquery-1.9.0.min.js"></script> 
+        <!--
+        <script type="text/javascript" src="resources/js/jquery-1.9.0.min.js"></script> -->
         <script type="text/javascript" src="resources/js/move-top.js"></script>
         <script type="text/javascript" src="resources/js/easing.js"></script>
         <script type="text/javascript" src="resources/js/jquery.nivo.slider.js"></script>
@@ -52,7 +55,7 @@
                     <div class="wrap">
                         <div class="header_top">
                             <div class="logo">
-                                <a href="#"><img src="resources/images/newlogo.jpg" alt="" /></a>
+                                <a href="#"><img src="resources/image/newlogo.jpg" alt="" /></a>
                             </div>
                             <div class="header_top_right">
                                 <div class="search_box">
@@ -105,112 +108,70 @@
         <div id="content" class="center_content">
             <ui:insert name="content">
                 <div class="main">
-                    <div class="wrap"><!--
+                    <div class="wrap">
                         <div class="content_top">
                             <div class="back-links">
-                                <p><a href="#" style="font-size: x-large; color: orange;">&gt;&gt;&gt; Details</a></p>
+                                <p><a href="#" style="font-size: large; color: orange; font-weight: bold">MOVIE DETAILS</a></p>
                             </div>
                             <div class="clear"></div>
-                            
-                        </div>--> <hr/>
+
+                        </div>
                         <div class="section group">
                             <div class="cont-desc span_1_of_2">
                                 <div class="product-details">				
                                     <div class="grid images_3_of_2">
-                                        <img src="resources/images/preview.jpg" alt="" />
+                                        <p:graphicImage value="/#{movieMB.selectedMovie.image}" width="90%"/>
                                     </div>
                                     <div class="desc span_3_of_2">
-                                        <h2>Wrath of the Titans </h2>
-                                        
+                                        <h2><p:outputLabel value="#{movieMB.selectedMovie.movieName}" /> </h2>
+
                                         <div class="price">
-                                            <p>Price: <span>$500</span></p>
+                                            <p>Price: <span><p:outputLabel value="#{movieMB.selectedMovie.ticketPrice}">
+                                                        <f:convertNumber type="currency" pattern="#,###" currencySymbol="VND " maxFractionDigits="0" locale=""/>
+                                                    </p:outputLabel> </span></p>
                                         </div>
                                         <div class="available">
                                             <ul>
-                                                <li><span>Model:</span> &nbsp; Model 1</li>
-                                                <li><span>Shipping Weight:</span>&nbsp; 5lbs</li>
-                                                <li><span>Units in Stock:</span>&nbsp; 566</li>
+                                                <li><span>Director:</span> &nbsp; <p:outputLabel value="#{movieMB.selectedMovie.director}" /></li>
+                                                <li><span>Cast:</span>&nbsp; <p:outputLabel value="#{movieMB.selectedMovie.cast}" /></li>
+                                                <li><span>Genre:</span>&nbsp; <p:outputLabel value="#{movieMB.selectedMovie.genre}" /></li>
+                                                <li><span>Release date:</span>&nbsp; <p:outputLabel value="#{movieMB.selectedMovie.beginDate}" /></li>
+                                                <li><span>Running Time:</span>&nbsp; <p:outputLabel value="#{movieMB.selectedMovie.runTime} minutes" /></li>
+                                                <li><span>Language:</span>&nbsp; <p:outputLabel value="#{movieMB.selectedMovie.language}" /></li>
+                                                <li><span>Rated:</span>&nbsp; <p:outputLabel value="#{movieMB.selectedMovie.rated} +" /></li>
+                                                <li><p:commandButton value="GET TICKET" >
+                                                        <p:graphicImage value="/resources/image/cash.png"/>
+                                                    </p:commandButton></li>
                                             </ul>
                                         </div>
-                                        <div class="share-desc">
-                                            <div class="share">
-                                                <p>Number of units :</p><input class="text_box" type="text"/>				
-                                            </div>
-                                            <div class="button"><span><a href="#">Add to Cart</a></span></div>					
+                                        <div class="share-desc">                                            
+
                                             <div class="clear"></div>
                                         </div>
-                                        <div class="wish-list">
-                                            <ul>
-                                                <li class="wish"><a href="#">Add to Wishlist</a></li>
-                                                <li class="compare"><a href="#">Add to Compare</a></li>
-                                            </ul>
-                                        </div>
+
                                     </div>
                                     <div class="clear"></div>
                                 </div>
                                 <div class="product_desc">	
-                                    <h2>Details :</h2>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+                                    <h2>Description :</h2>
+                                    <p><h:outputText value="#{movieMB.selectedMovie.description}" style="text-align: justify"/> </p>
                                 </div>
                             </div>
                             <div class="rightsidebar span_3_of_1 sidebar">
+
                                 <h2>Specials</h2>
                                 <div class="special_movies">
                                     <div class="movie_poster">
-                                        <a href="preview.html"><img src="resources/images/end-game.jpg" alt="" /></a>
+                                        <a href="#"><img src="resources/image/end-game.jpg" alt="" /></a>
                                     </div>
                                     <div class="movie_desc">
-                                        <h3><a href="preview.html">End Game</a></h3>
+                                        <h3><a href="#">End Game</a></h3>
                                         <p><span>$620.87</span> &nbsp; $500.35</p>
-                                        <span><a href="#">Add to Cart</a></span>
+                                        <span><a href="#">Get ticket</a></span>
                                     </div>
                                     <div class="clear"></div>
                                 </div>	
-                                <div class="special_movies">
-                                    <div class="movie_poster">
-                                        <a href="preview.html"><img src="resources/images/Coraline.jpg" alt="" /></a>
-                                    </div>
-                                    <div class="movie_desc">
-                                        <h3><a href="preview.html">Coraline</a></h3>
-                                        <p><span>$620.87</span> &nbsp; $500.35</p>
-                                        <span><a href="#">Add to Cart</a></span>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>	
-                                <div class="special_movies">
-                                    <div class="movie_poster">
-                                        <a href="preview.html"><img src="resources/images/Eclipse.jpg" alt="" /></a>
-                                    </div>
-                                    <div class="movie_desc">
-                                        <h3><a href="preview.html">Eclipse</a></h3>
-                                        <p><span>$620.87</span> &nbsp; $500.35</p>
-                                        <span><a href="#">Add to Cart</a></span>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>	
-                                <div class="special_movies">
-                                    <div class="movie_poster">
-                                        <a href="preview.html"><img src="resources/images/Priest.jpg" alt="" /></a>
-                                    </div>
-                                    <div class="movie_desc">
-                                        <h3><a href="preview.html">Priest 3D</a></h3>
-                                        <p><span>$620.87</span> &nbsp; $500.35</p>
-                                        <span><a href="#">Add to Cart</a></span>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>	
-                                <div class="special_movies">
-                                    <div class="movie_poster">
-                                        <a href="preview.html"><img src="resources/images/Sorority_Wars.jpg" alt="" /></a>
-                                    </div>
-                                    <div class="movie_desc">
-                                        <h3><a href="preview.html">Sorority Wars</a></h3>
-                                        <p><span>$620.87</span> &nbsp; $500.35</p>
-                                        <span><a href="#">Add to Cart</a></span>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>			 
+
                             </div>
                         </div>
                     </div>
@@ -222,9 +183,18 @@
             <ui:insert name="bottom">
                 <div class="footer">   	  
                     <div class="copy_right">
-                        <p>ShowBiz Company | <a href="#">EASYtickets.COM</a> </p>
+                        <p>SHOWBIZ Company | <a href="#">www.easytickets.com</a> </p>
                     </div>			
                 </div>
+                <input type="submit" value="" />
+
+                <style type="text/css">
+                    .ui-icon { 
+                        width: 16px; 
+                        height: 16px; 
+                        background-image: url(#{resource['/resources/image/cash.png']}); 
+                    }
+                </style>
 
                 <script type="text/javascript">
                     $(document).ready(function () {

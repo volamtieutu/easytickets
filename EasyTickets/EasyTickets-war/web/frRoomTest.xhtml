@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet library="vendor" name="/bootstrap/css/bootstrap.min.css"/>
+    </h:head>
+    <h:body>
+        <h:form id="room">
+            <p:panel id="panel" header="New Room">
+                <h:panelGrid columns="3">
+                    <p:outputLabel value="Cinema ID:" style="font-weight:bold"/>
+                    <p:inputText readonly="true" id="cinemaname" value="#{cinemaMB.cinemaID}"/>                                    
+                    <p:outputLabel value=""/>
+
+                    <p:outputLabel value="Room name:" style="font-weight:bold"/>
+                    <p:inputText value="#{roomMB.roomName}" required="true" requiredMessage="Please enter Room name!"/>                                    
+                    <p:outputLabel value="#{roomMB.mess}" class="alert-warning"/>
+
+                    <p:outputLabel value="Seat.No:" style="font-weight:bold"/>
+                    <p:inputText value="#{roomMB.seatNo}" required="true" requiredMessage="Please enter Seat.No!"/>                                    
+                    <p:outputLabel value="#{roomMB.mess}" class="alert-warning"/>
+
+                    <f:facet name="footer">
+                        <h:panelGroup style = "display:block; text-align:center;">
+                            <h:commandButton styleClass="btn btn-primary" value="Submit" actionListener="#{roomMB.createRoom(cinemaMB.cinemaID)}"/>                      
+                            <h:commandButton styleClass="btn btn-primary" value="Reset" actionListener="#{roomMB.resetValue()}"/>
+                        </h:panelGroup>
+                    </f:facet>
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+        <hr/>
+        <h:form id="form">
+            <p:panel id="panel" header="Room Review">
+                <p:growl id="mgs" showDetail="true" />
+                <p:dataTable editable="true" id="table" selection="#{roomMB.value}" rowKey="#{item.roomID}" style="margin-bottom:0" var="item" value="#{roomMB.displayAll()}" paginator="true" rows="5"
+                             paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                             rowsPerPageTemplate="5,10,15">
+
+                    <f:facet name="header">
+                        <h:commandButton styleClass="btn btn-danger" value="Delete" actionListener="#{roomMB.showDelete()}"/>
+                    </f:facet>
+
+                    <p:column selectionMode="multiple" style="width:10px;text-align:center"/>
+
+                    <p:column headerText="Room ID" width="50">                                        
+                        <h:outputText value="#{item.roomID}"/>
+                    </p:column>
+
+                    <p:column headerText="Cinema name" width="200">                                        
+                        <h:outputText value="#{item.cinemaID.cinemaName}"/>
+                    </p:column>
+
+                    <p:column headerText="Room name" width="100">                                        
+                        <h:outputText value="#{item.roomName}"/>
+                    </p:column>
+
+                    <p:column headerText="Seat. No" width="50">                                        
+                        <h:outputText value="#{item.seatNo}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+
+        <h:form id="popup">
+            <h:panelGroup layout="block" styleClass="popup-panel-overlay" rendered="#{roomMB.showPopup}">
+                <div class="popup-panel">
+                    <p:panel header="New Seat">
+                        <h:panelGrid columns="3">
+                            <p:outputLabel value="Room ID:" style="font-weight:bold"/>
+                            <p:inputText readonly="true" id="cinemaname" value="#{roomMB.roomID}"/>                                    
+                            <p:outputLabel value=""/>
+
+                            <p:outputLabel value="Row name:" style="font-weight:bold"/>
+                            <p:inputText value="#{roomMB.row}" required="true" requiredMessage="Please enter row name!"/>                                    
+                            <p:outputLabel value="#{roomMB.mess}" class="alert-warning"/>
+
+                            <p:outputLabel value="Number:" style="font-weight:bold"/>
+                            <p:inputText value="#{roomMB.number}" required="true" requiredMessage="Please enter number!"/>                                    
+                            <p:outputLabel value="#{roomMB.mess}" class="alert-warning"/>
+                        </h:panelGrid>
+                    </p:panel>
+                    <h:commandButton value="Save" actionListener="#{roomMB.createSeat(roomMB.roomID)}"/> 
+                    <h:commandButton value="Close" action="#{roomMB.hide()}">
+                        <f:ajax render="popup"/>
+                    </h:commandButton>
+                </div>
+            </h:panelGroup>
+        </h:form>
+
+        <h:form id="popupDelete">
+            <h:panelGroup layout="block" class="popup-panel-overlay" rendered="#{roomMB.showPopupDelete}">
+                <div class="popup-panel">
+                    <p:panel header="Confirm">
+                        <h:outputText value="Are you sure you want to delete this element?"/>
+                        <hr/>
+                        <h:panelGrid columns="2" cellpadding="20" cellspacing="1">
+                            <h:commandButton styleClass="btn btn-success" value="Yes" actionListener="#{roomMB.remove()}"/> 
+                            <h:commandButton styleClass="btn btn-success" value="No" actionListener="#{roomMB.hideDelete()}">
+                                <f:ajax render="popupDelete"/>
+                            </h:commandButton>
+                        </h:panelGrid>
+                    </p:panel>
+                </div>
+            </h:panelGroup>
+        </h:form>
+    </h:body>
+</html>
+

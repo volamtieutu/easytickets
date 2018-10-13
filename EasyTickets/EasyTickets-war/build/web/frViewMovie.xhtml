@@ -1,0 +1,206 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>                
+        <ui:composition template="/adminTemplate.xhtml">
+            <ui:define name="content">
+                <div id="page-wrapper">
+                    <div id="content" class="left_content">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h1 class="page-header">Movie Management</h1>
+                            </div>
+                        </div>
+                        <div class="form-body">
+                            <h:form id="form" >
+                                <p:panel id="panel" header="List Movie" >
+                                    <p:growl id="growl" showDetail="true" />
+
+                                    <f:facet name="header">
+                                        <p:commandButton icon="ui-icon-close" class="btn-danger" value="Delete" update=":dialogDelete:delete" oncomplete="PF('dlg2').show()"/>                                                
+                                    </f:facet>
+
+                                    <p:dataTable editable="true" id="table" selection="#{movieMB.value}" rowKey="#{item.movieID}" style="margin-bottom:20px" var="item" value="#{movieMB.displayAll()}" paginator="true" rows="5"
+                                                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                                 rowsPerPageTemplate="5,10,15">
+
+                                        <p:column selectionMode="multiple" style="width:10px;text-align:center"/>
+
+                                        <p:column headerText="ID" width="50">                                        
+                                            <div align="center"><h:outputText value="#{item.movieID}"/></div>
+                                        </p:column>
+
+                                        <p:column headerText="Name" width="150">                                        
+                                            <h:outputText value="#{item.movieName}"/>
+                                        </p:column>
+
+                                        <p:column headerText="Genre" width="120">
+                                            <h:outputText value="#{item.genre}"/>
+                                        </p:column>
+
+                                        <p:column headerText="Price" width="50">
+                                            <div align="center"><h:outputText value="#{item.ticketPrice}"/></div>
+                                        </p:column>
+
+                                        <p:column headerText="Begin date" width="50">                                        
+                                            <div align="right"><h:outputText value="#{item.beginDate}">
+                                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                </h:outputText></div>
+                                        </p:column>
+
+                                        <p:column width="30">
+                                            <p:commandButton icon="ui-icon-pencil" update=":dialog:movieDetail" oncomplete="PF('movieDialog').show()">
+                                                <f:setPropertyActionListener target="#{movieMB.val}" value="#{item}"/>
+                                            </p:commandButton>
+                                        </p:column>
+                                    </p:dataTable>                                    
+                                </p:panel>                                
+                            </h:form>
+
+                            <h:form class="form-horizontal" enctype="multipart/form-data" id="dialog">                                
+                                <p:dialog class="panel-heading" width="80%" height="500" header="Movie Update" widgetVar="movieDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                                    <p:growl id="growl" showDetail="true" />
+                                    <div align="center">
+                                        <p:outputPanel id="movieDetail" style="text-align:left" >
+                                            <div class="form-group">
+                                                <p:outputLabel class="col-sm-2 control-label" value="Movie name:" style="font-weight:bold"/>
+                                                <div class="col-sm-6">
+                                                    <p:inputText id="moviename" style="width: 450px" value="#{movieMB.val.movieName}" required="true" requiredMessage="Movie name can't be empty"/>                                    
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <p:outputLabel class="col-sm-2 control-label" value="Genre:" style="font-weight:bold"/>
+                                                <div class="col-sm-6">
+                                                    <p:selectManyCheckbox id="grid" value="#{movieMB.genre}" layout="grid" columns="4" required="true" requiredMessage="Genre can't be empty">
+                                                        <f:selectItems value="#{movieMB.genres}" var="genre" itemLabel="#{genre}" itemValue="#{genre}" />
+                                                    </p:selectManyCheckbox>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <p:outputLabel class="col-sm-2 control-label" value="Language:" style="font-weight:bold"/>
+                                                <div class="col-sm-6">
+                                                    <p:inputText id="name" style="width: 450px" value="#{movieMB.val.language}" placeholder="Language of movie" required="true" requiredMessage="Language of can't be empty"/>                                    
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <p:outputLabel class="col-sm-2 control-label" value="Rated:" style="font-weight:bold"/>
+                                                <div class="col-sm-6">
+                                                    <p:inputText id="rated" style="width: 450px" value="#{movieMB.val.rated}" placeholder="Age rated">
+                                                        <p:keyFilter regEx="/[\d]/"/>
+                                                    </p:inputText>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <p:outputLabel class="col-sm-2 control-label" value="Director:" style="font-weight:bold"/>
+                                                <div class="col-sm-6">
+                                                    <p:inputText id="director" style="width: 450px" value="#{movieMB.val.director}"  placeholder="Director name"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <h:outputLabel class="col-sm-2 control-label" value="Cast:" style="font-weight:bold"/>
+                                                <div class="col-sm-6">
+                                                    <p:inputText id="cast" style="width: 450px" value="#{movieMB.val.cast}"  placeholder="Cast name"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <p:outputLabel class="col-sm-2 control-label" value="Running time:" style="font-weight:bold"/>
+                                                <div class="col-sm-6">
+                                                    <p:inputText id="runtime" style="width: 450px" value="#{movieMB.val.runTime}">
+                                                        <p:keyFilter regEx="/[\d]/"/>
+                                                    </p:inputText>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <p:outputLabel class="col-sm-2 control-label" value="Point:" style="font-weight:bold" />
+                                                <div class="col-sm-6">
+                                                    <p:inputText id="point" style="width: 450px" value="#{movieMB.val.point}">
+                                                        <p:keyFilter regEx="/[\d]/"/>
+                                                    </p:inputText>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <p:outputLabel class="col-sm-2 control-label" value="Price:" style="font-weight:bold"/>
+                                                <div class="col-sm-6">
+                                                    <p:spinner id="price" value="#{movieMB.val.ticketPrice}" prefix="$" min="0"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <p:outputLabel class="col-sm-2 control-label" value="Begin date:" style="font-weight:bold"/>
+                                                <div class="col-sm-6">
+                                                    <p:calendar value="#{movieMB.val.beginDate}" pattern="yyyy-MM-dd" mask="true" mindate="#{movieMB.minDateBegin()}"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <p:outputLabel class="col-sm-2 control-label" value="End date:" style="font-weight:bold"/>
+                                                <div class="col-sm-6">
+                                                    <p:calendar value="#{movieMB.val.endDate}" pattern="yyyy-MM-dd" mask="true" mindate="#{movieMB.minDateEnd()}"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <p:outputLabel class="col-sm-2 control-label" value="Promotion:" style="font-weight:bold"/>
+                                                <div class="col-sm-6">
+                                                    <p:selectOneMenu id="advanced" value="#{movieMB.proID}" panelStyle="width:180px"
+                                                                     effect="fade" style="width: 200px" filter="true" filterMatchMode="startsWith">
+                                                        <f:selectItems value="#{movieMB.displayAllPromotion()}" var="pro" itemLabel="#{pro.promotionName}" itemValue="#{pro.promotionID}" />                                                
+                                                    </p:selectOneMenu>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <p:outputLabel class="col-sm-2 control-label" value="Image:" style="font-weight:bold"/>
+                                                <div class="col-sm-6">
+                                                    <h:inputFile value="#{movieMB.fileUp}"/>
+                                                    <p:graphicImage value="/#{movieMB.val.image}" style="width: 60px; height: 90px;"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <p:outputLabel class="col-sm-2 control-label" value="Trailer:" style="font-weight:bold"/>
+                                                <div class="col-sm-6">
+                                                    <p:inputTextarea rows="3" cols="30" style="width: 450px" value="#{movieMB.val.media}" queryDelay="750" minQueryLength="5" />                                                        
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <p:outputLabel class="col-sm-2 control-label" value="Description:" style="font-weight:bold"/>
+                                                <div class="col-sm-6">
+                                                    <p:inputTextarea rows="5" cols="30" style="width: 450px" value="#{movieMB.val.description}" queryDelay="750" minQueryLength="5" />
+                                                </div>
+                                            </div>                                        
+                                            <div class="form-group"> 
+                                                <label class="col-sm-2 control-label"></label> 
+                                                <div class="col-sm-1">
+                                                    <h:commandButton styleClass="btn btn-success" style="width: 70px;" value="Save" actionListener="#{movieMB.updateMovie()}"/>                                                   
+                                                </div>
+                                            </div>
+                                        </p:outputPanel>
+                                    </div>
+                                </p:dialog>
+                            </h:form>
+                            <h:form id="dialogDelete">
+                                <p:dialog header="Confirmation" widgetVar="dlg2" modal="true"> 
+                                    <p:outputPanel id="delete" style="text-align:left" >
+                                        <p:outputLabel value="Are you sure you want to delete this element?"/>
+                                        <hr/>
+                                        <div align="center">
+                                            <h:panelGrid columns="3" cellpadding="20" cellspacing="1">
+                                                <h:commandButton styleClass="btn btn-warning" style="width: 70px;" value="Yes" actionListener="#{movieMB.remove()}"/> &nbsp;
+                                                <h:commandButton styleClass="btn btn-success" style="width: 70px;" value="No" actionListener="#{movieMB.cancel()}"/>                                                
+                                            </h:panelGrid>
+                                        </div>
+                                    </p:outputPanel>
+                                </p:dialog> 
+                            </h:form>
+                        </div>
+                    </div>
+                </div>                
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

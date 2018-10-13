@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:body>        
+        <ui:composition template="/adminTemplate.xhtml">
+            <ui:define name="content">
+                <div id="page-wrapper">
+                    <div id="content" class="left_content">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h:form>
+                                    <h1 class="page-header">Movie Management</h1>      
+                                </h:form>
+                            </div>
+                        </div>
+                        <div class="form-body">
+                            <h:form class="form-horizontal" id="forminput" enctype="multipart/form-data">                                    
+                                <p:panel class="panel-heading" id="input" header="New Movie">
+                                    <div class="form-group">
+                                        <p:outputLabel class="col-sm-2 control-label" value="Movie name:" style="font-weight:bold"/>
+                                        <div class="col-sm-4"> 
+                                            <p:inputText id="moviename" value="#{movieMB.movieName}" style="width: 500px" required="true" requiredMessage="Movie name can't be empty"/>                                    
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p:outputLabel class="col-sm-2 control-label" value="Genre:" style="font-weight:bold"/>
+                                        <div class="col-sm-6">
+                                            <p:selectManyCheckbox id="grid" value="#{movieMB.genre}" layout="grid" columns="4">
+                                                <f:selectItems value="#{movieMB.genres}" var="genre" itemLabel="#{genre}" itemValue="#{genre}" />
+                                            </p:selectManyCheckbox>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p:outputLabel class="col-sm-2 control-label" value="Language:" style="font-weight:bold"/>
+                                        <div class="col-sm-4">
+                                            <p:inputText style="width: 500px" id="name" value="#{movieMB.language}" placeholder="Language of movie" required="true" requiredMessage="Language of can't be empty"/>                                    
+                                        </div>                                            
+                                    </div>
+                                    <div class="form-group">
+                                        <p:outputLabel class="col-sm-2 control-label" value="Rated:" style="font-weight:bold"/>
+                                        <div class="col-sm-4">
+                                            <p:inputText style="width: 500px" id="rated" value="#{movieMB.rated}" placeholder="Age rated">
+                                                <p:keyFilter regEx="/[\d]/"/>
+                                            </p:inputText>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p:outputLabel class="col-sm-2 control-label" value="Director:" style="font-weight:bold"/>
+                                        <div class="col-sm-4">
+                                            <p:inputText style="width: 500px" id="director" value="#{movieMB.director}"  placeholder="Director name"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel class="col-sm-2 control-label" value="Cast:" style="font-weight:bold"/>
+                                        <div class="col-sm-4">
+                                            <p:inputText style="width: 500px" id="cast" value="#{movieMB.cast}"  placeholder="Cast name"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p:outputLabel class="col-sm-2 control-label" value="Running time:" style="font-weight:bold"/>
+                                        <div class="col-sm-4">
+                                            <p:inputText style="width: 500px" id="runtime" value="#{movieMB.runTime}" placeholder="minutes">
+                                                <p:keyFilter regEx="/[\d]/"/>
+                                            </p:inputText>                                                        
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p:outputLabel class="col-sm-2 control-label" value="Point:" style="font-weight:bold" />
+                                        <div class="col-sm-4">
+                                            <p:inputText style="width: 500px" id="point" value="#{movieMB.point}">
+                                                <p:keyFilter regEx="/[\d]/"/>
+                                            </p:inputText>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p:outputLabel class="col-sm-2 control-label" value="Price:" style="font-weight:bold"/>
+                                        <div class="col-sm-4">
+                                            <p:spinner id="price" value="#{movieMB.ticketPrice}" prefix="$" min="0"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p:outputLabel class="col-sm-2 control-label" value="Begin date:" style="font-weight:bold"/>
+                                        <div class="col-sm-4">
+                                            <p:calendar style="width: 500px" value="#{movieMB.beginDate}" pattern="yyyy-MM-dd" mask="true" mindate="#{movieMB.minDateBegin()}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p:outputLabel class="col-sm-2 control-label" value="End date:" style="font-weight:bold"/>
+                                        <div class="col-sm-4">
+                                            <p:calendar style="width: 500px" value="#{movieMB.endDate}" pattern="yyyy-MM-dd" mask="true" mindate="#{movieMB.minDateEnd()}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p:outputLabel class="col-sm-2 control-label" value="Promotion:" style="font-weight:bold"/>                
+                                        <div class="col-sm-4">
+                                            <p:selectOneMenu id="advanced" value="#{movieMB.proID}" panelStyle="width:180px"
+                                                             effect="fade" style="width:160px" filter="true" filterMatchMode="startsWith">
+                                                <f:selectItems value="#{movieMB.displayAllPromotion()}" var="pro" itemLabel="#{pro.promotionName}" itemValue="#{pro.promotionID}" />                                                
+                                            </p:selectOneMenu>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p:outputLabel class="col-sm-2 control-label" value="Image:" style="font-weight:bold"/>                
+                                        <div class="col-sm-4">
+                                            <h:inputFile style="width: 500px" value="#{movieMB.file}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p:outputLabel class="col-sm-2 control-label" value="Trailer:" style="font-weight:bold"/>
+                                        <div class="col-sm-4">
+                                            <p:inputTextarea rows="3" cols="30" value="#{movieMB.media}" style="width: 500px" queryDelay="750" minQueryLength="5" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p:outputLabel class="col-sm-2 control-label" value="Description:" style="font-weight:bold"/>
+                                        <div class="col-sm-4">
+                                            <p:inputTextarea rows="5" cols="30" value="#{movieMB.description}" style="width: 500px" queryDelay="750" minQueryLength="5" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group"> 
+                                        <label class="col-sm-2 control-label"></label> 
+                                        <div class="col-sm-1">
+                                            <h:commandButton style="width: 80px; height: 35px" styleClass="btn btn-success" value="Submit" actionListener="#{movieMB.insertMovieInfo()}">
+                                                <f:ajax execute="input" render="forminput" />
+                                            </h:commandButton>
+                                        </div>
+                                        <div class="col-sm-3"> 
+                                            <h:commandButton style="width: 80px; height: 35px" styleClass="btn btn-warning" value="Reset" actionListener="#{movieMB.resetValue()}">
+                                                <f:ajax render="input" />
+                                            </h:commandButton>
+                                        </div>
+                                    </div>
+                                </p:panel>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>                
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

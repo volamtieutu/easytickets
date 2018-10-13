@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./easyTemplate.xhtml">
+
+            <ui:define name="content">
+                <div class="main">
+                    <h:form id="nowForm">
+                        <div class="wrap">
+                            <div class="content">
+                                <div class="content_top">
+                                    <div class="heading">
+                                        <h3>Now playing</h3>
+                                    </div>
+                                </div>
+
+                                <p:dataGrid  var="item" value="#{displayMovieMB.showNowPlaying()}" columns="5"
+                                             rows="10" paginator="true" layout="grid"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="10,20,30">
+
+                                    <p:panel style="text-align: center;">
+                                        <h:panelGrid columns="1" style="width: 100%; text-align: center;">    
+                                            <h:commandLink title="View Detail" action="/movieDetails.xhtml?faces-redirect = true">
+                                                <p:graphicImage value="/#{item.image}" alt="#{item.movieName}" width="180" height="200" style="cursor: pointer" title="#{item.movieName}"/>   
+                                                <f:setPropertyActionListener target="#{globalVariable.selectedMovie}" value="#{item}"/>
+                                            </h:commandLink>
+                                            <h:outputText value="Available from: " style="background-color: orange; font-weight: bold; font-style: italic;"/>
+                                            <h:outputText value="#{item.beginDate}">
+                                                <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+                                            </h:outputText>
+                                            <p:commandButton value="GET TICKET" style="width: 100%" update=":nowForm:bookTicket" oncomplete="PF('bookingDlg').show()">                                          
+                                                <f:setPropertyActionListener target="#{globalVariable.selectedMovie}" value="#{item}"/>
+                                            </p:commandButton>          
+                                        </h:panelGrid>
+                                    </p:panel>
+                                </p:dataGrid>                                 
+                                <!--</h:form>-->
+
+
+                            </div>
+                            <div class="content">
+                                <div class="content_top">
+                                    <div class="heading">
+                                        <h3>Incoming</h3>
+                                    </div>
+                                </div>
+                                <!--<h:form>-->
+                                <p:dataGrid  var="item" value="#{displayMovieMB.showIncoming()}" columns="5"
+                                             rows="10" paginator="true"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                             rowsPerPageTemplate="10,20,30">
+
+
+                                    <p:panel style="text-align: center">
+                                        <h:panelGrid columns="1" style="width: 100%; text-align: center;">    
+                                            <h:commandLink title="View Detail" action="/movieDetails.xhtml?faces-redirect = true">
+                                                <p:graphicImage value="/#{item.image}" alt="#{item.movieName}" width="180" height="200" style="cursor: pointer" title="#{item.movieName}"/>   
+                                                <f:setPropertyActionListener target="#{globalVariable.selectedMovie}" value="#{item}"/>
+                                            </h:commandLink>
+                                            <h:outputText value="Available from: " style="background-color: orange; font-weight: bold; font-style: italic;"/>
+                                            <h:outputText value="#{item.beginDate}">
+                                                <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+                                            </h:outputText>
+                                            <p:commandButton value="GET TICKET" style="width: 100%" update=":nowForm:bookTicket" oncomplete="PF('bookingDlg').show()">                                          
+                                                <f:setPropertyActionListener target="#{globalVariable.selectedMovie}" value="#{item}"/>
+                                            </p:commandButton>          
+                                        </h:panelGrid>
+                                    </p:panel>
+
+                                </p:dataGrid> 
+
+
+                            </div>
+                        </div> 
+                        <p:dialog id="bookTicket" header="Booking tickets" widgetVar="bookingDlg" modal="false" position="center center" onShow="PF('bookingDlg').initPosition()" 
+                                  showEffect="fold" hideEffect="explode" resizable="false" >
+                            <!--<p:outputPanel id="bookTicket" style="text-align:center; border: hidden">-->
+                            <p:panelGrid columns="2" style="width: 100%;text-align: left; border: hidden">            
+                                <p:outputLabel for="showDate" value="Select date:" />
+                                <p:calendar id="showDate" value="#{bookingMovieMB.bookingDate}" mindate="#{displayMovieMB.today}" maxdate="#{displayMovieMB.maxDate}" 
+                                            pattern="dd/MM/yyyy" mode="inline"/>
+
+                                <p:outputLabel for="city" value="Select Province/City: " />
+                                <p:selectOneMenu id="city" value="#{bookingMovieMB.selectedAreaID}" panelStyle="width:200px"
+                                                 effect="fade" style="width:200px" filter="true" filterMatchMode="startsWith">    
+                                    <p:ajax update="theater" listener="#{bookingMovieMB.findCinema()}"/>
+                                    <f:selectItem itemLabel="Select City" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems value="#{bookingMovieMB.showAll()}" var="cityItem" itemValue="#{cityItem.areaID}" itemLabel="#{cityItem.areaName}"/>
+                                </p:selectOneMenu>
+
+                                <p:outputLabel for="theater" value="Theater: "/>
+                                <p:selectOneMenu id="theater" value="#{bookingMovieMB.cinemaID}" panelStyle="width:200px"
+                                                 effect="fade" style="width:200px" filter="true" filterMatchMode="startsWith">
+                                    <f:selectItem itemLabel="Select Cinema" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems value="#{bookingMovieMB.cinemaList}" var="cinemaItem" itemLabel="#{cinemaItem.cinemaName}" itemValue="#{cinemaItem.cinemaID}" />
+                                </p:selectOneMenu>
+
+                                <p:outputLabel for="timeSlot" value="Time slots: "  />
+                                <p:selectOneMenu id="timeSlot" value="City" panelStyle="width:200px"
+                                                 effect="fade" style="width:200px" filter="true" filterMatchMode="startsWith">
+                                    <f:selectItem itemLabel="Select One" itemValue="1" />
+                                    <f:selectItem itemLabel="Sang"  />
+                                    <f:selectItem itemLabel="Trua"  />
+                                    <f:selectItem itemLabel="Chieu"  />
+                                    <f:selectItem itemLabel="Toi"  />
+                                    <f:selectItem itemLabel="Khuya"  />
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value=""/>
+                                <p:commandButton value="NEXT" title="Next step is selecting seats"/>
+
+                            </p:panelGrid>
+                            <!-- </p:outputPanel>-->
+                        </p:dialog>
+
+                    </h:form>
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

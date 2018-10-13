@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="/adminTemplate.xhtml">
+            <ui:define name="content">
+                <div id="page-wrapper">
+                    <div id="content" class="left_content">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h:form>
+                                    <h1 class="page-header">Place Management</h1>      
+                                </h:form>
+                            </div>
+                        </div>
+                        <div class="form-body">
+                            <h:form class="form-horizontal" id="forminput">                                
+                                <p:panel class="panel-heading" id="input" header="New Cinema">                                   
+                                    <div class="form-group">
+                                        <p:outputLabel class="col-sm-2 control-label" value="Cinema name:" style="font-weight:bold"/>
+                                        <div class="col-sm-4"> 
+                                            <p:inputText id="moviename" value="#{cinemaMB.cinemaName}" required="true" requiredMessage="Please enter Cinema name!"/>                                    
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel class="col-sm-2 control-label" value="Address:" style="font-weight:bold"/>
+                                        <div class="col-sm-4"> 
+                                            <p:inputTextarea rows="3" cols="30" value="#{cinemaMB.cinemaAdd}" queryDelay="750" minQueryLength="4" required="true" requiredMessage="Address can't be empty."/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p:outputLabel class="col-sm-2 control-label" value="Phone:" style="font-weight:bold"/>
+                                        <div class="col-sm-4"> 
+                                            <p:inputText id="phone" value="#{cinemaMB.phone}" required="true" requiredMessage="Plaese enter number phone!"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p:outputLabel class="col-sm-2 control-label" value="Area:" style="font-weight:bold"/>
+                                        <div class="col-sm-4"> 
+                                            <p:selectOneMenu id="grid" value="#{cinemaMB.areaID}">
+                                                <f:selectItems value="#{cinemaMB.displayAllArea()}" var="area" itemLabel="#{area.areaName}" itemValue="#{area.areaID}"/>
+                                            </p:selectOneMenu>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group"> 
+                                        <label class="col-sm-2 control-label"></label> 
+                                        <div class="col-sm-1">
+                                            <h:commandButton style="width: 80px; height: 35px" styleClass="btn btn-success" value="Submit" actionListener="#{cinemaMB.createCinema()}">
+                                                <f:ajax execute="forminput" render="form:table" />
+                                            </h:commandButton>
+                                        </div>
+                                        <div class="col-sm-3"> 
+                                            <h:commandButton style="width: 80px; height: 35px" styleClass="btn btn-warning" value="Reset" actionListener="#{cinemaMB.resetValue()}">
+                                                <f:ajax render="input" />
+                                            </h:commandButton>
+                                        </div>
+                                    </div>
+                                </p:panel>
+                            </h:form>
+                            <hr/>
+                            <h:form id="form">
+                                <p:panel id="panel" header="List Cinema">
+                                    <p:growl id="cinematable" showDetail="true" />
+
+                                    <f:facet name="header">
+                                        <p:commandButton icon="ui-icon-close" class="btn-danger" value="Delete" update=":dialogDelete:delete" oncomplete="PF('dlg2').show()"/>                                                
+                                    </f:facet>
+
+                                    <p:dataTable editable="true" id="table" selection="#{cinemaMB.value}" rowKey="#{item.cinemaID}" style="margin-bottom:20px" var="item" value="#{cinemaMB.displayAllCinema()}" paginator="true" rows="5"
+                                                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                                 rowsPerPageTemplate="5,10,15">
+
+                                        <p:column selectionMode="multiple" style="width:10px;text-align:center"/>
+
+                                        <p:column headerText="ID" width="30">                                        
+                                            <div align="center"><h:outputText value="#{item.cinemaID}"/></div>
+                                        </p:column>
+
+                                        <p:column headerText="Area Name" width="100">
+                                            <h:outputText value="#{item.areaID.areaName}" />
+                                        </p:column>
+
+                                        <p:column headerText="Cinema Name" width="100">
+                                            <h:outputText value="#{item.cinemaName}" />
+                                        </p:column>
+
+                                        <p:column headerText="Cinema Address" width="170">
+                                            <h:outputText value="#{item.cinemaAddress}" />
+                                        </p:column>
+
+                                        <p:column headerText="Phone" width="70">   
+                                            <div align="center"><h:outputText value="#{item.phone}" /></div>
+                                        </p:column>
+
+                                        <p:column width="30">
+                                            <p:commandButton icon="ui-icon-pencil" update=":dialog:cinemaDetail" oncomplete="PF('cinemaDialog').show()">
+                                                <f:setPropertyActionListener target="#{cinemaMB.val}" value="#{item}"/>
+                                            </p:commandButton>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:panel>
+                            </h:form>
+
+                            <h:form class="form-horizontal" enctype="multipart/form-data" id="dialog">
+                                <p:dialog class="panel-heading" header="Cinema Update" widgetVar="cinemaDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                                    <p:growl id="growl" showDetail="true" />
+                                    <div align="center">
+                                        <p:outputPanel id="cinemaDetail" style="text-align:left" >
+                                            <div class="form-group">
+                                                <p:outputLabel class="col-sm-2 control-label" value="Cinema name:" style="font-weight:bold"/>
+                                                <div class="col-sm-6">
+                                                    <p:inputText id="moviename" style="width: 450px" value="#{cinemaMB.val.cinemaName}" required="true" requiredMessage="Cinema name can't be empty"/>                                    
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <p:outputLabel class="col-sm-2 control-label" value="Address:" style="font-weight:bold"/>
+                                                <div class="col-sm-6">
+                                                    <p:inputText id="add" style="width: 450px" value="#{cinemaMB.val.cinemaAddress}" required="true" requiredMessage="Address can't be empty"/>                                    
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <p:outputLabel class="col-sm-2 control-label" value="Phone:" style="font-weight:bold"/>
+                                                <div class="col-sm-6">
+                                                    <p:inputText id="phone" style="width: 450px" value="#{cinemaMB.val.phone}" required="true" requiredMessage="Address can't be empty"/>                                    
+                                                </div>
+                                            </div>                               
+
+                                            <div class="form-group">
+                                                <p:outputLabel class="col-sm-2 control-label" value="Area:" style="font-weight:bold"/>
+                                                <div class="col-sm-6">
+                                                    <p:selectOneMenu style="width: 200px" id="gridD" value="#{cinemaMB.areaID}">
+                                                        <f:selectItem itemLabel="#{cinemaMB.val.areaID.areaName}"/>
+                                                        <f:selectItems  value="#{cinemaMB.displayAllArea()}" var="area" itemLabel="#{area.areaName}" itemValue="#{area.areaID}"/>
+                                                    </p:selectOneMenu>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group"> 
+                                                <label class="col-sm-2 control-label"></label> 
+                                                <div class="col-sm-1">
+                                                    <h:commandButton styleClass="btn btn-success" style="width: 70px;" value="Save" actionListener="#{cinemaMB.updateCinema()}"/>
+                                                </div>
+                                            </div>
+                                        </p:outputPanel>
+                                    </div>
+                                </p:dialog>
+                            </h:form>      
+
+                            <h:form id="dialogDelete">
+                                <p:dialog header="Confirmation" widgetVar="dlg2" modal="true"> 
+                                    <p:outputPanel id="delete" style="text-align:left" >
+                                        <p:outputLabel value="Are you sure you want to delete this element?"/>
+                                        <hr/>
+                                        <div align="center">
+                                            <h:panelGrid columns="3" cellpadding="20" cellspacing="1">
+                                                <h:commandButton styleClass="btn btn-warning" style="width: 70px;" value="Yes" actionListener="#{cinemaMB.remove()}"/> &nbsp;
+                                                <h:commandButton styleClass="btn btn-success" style="width: 70px;" value="No" actionListener="#{cinemaMB.cencel()}"/>                                                
+                                            </h:panelGrid>
+                                        </div>
+                                    </p:outputPanel>
+                                </p:dialog> 
+                            </h:form>
+                            
+                            
+                        </div>
+                    </div>
+                </div>                        
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

@@ -1,0 +1,249 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>EASYtickets.COM</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <link href="resources/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="resources/css/slider.css" rel="stylesheet" type="text/css" media="all"/>
+        <!--
+        <script type="text/javascript" src="resources/js/jquery-1.9.0.min.js"></script> -->
+        <script type="text/javascript" src="resources/js/move-top.js"></script>
+        <script type="text/javascript" src="resources/js/easing.js"></script>
+        <script type="text/javascript" src="resources/js/jquery.nivo.slider.js"></script>
+        <script type="text/javascript">
+            $(window).load(function () {
+                $('#slider').nivoSlider();
+            });
+        </script>
+    </h:head>
+
+    <h:body>
+
+        <div id="top" class="top">
+            <ui:insert name="top">
+                <div class="header">
+                    <div class="headertop_desc">
+                        <div class="wrap">
+                            <div class="nav_list" style="font-weight: bold; font-size: large">
+                                <ul>
+                                    <li><a href="#">HOME</a></li>
+                                    <li><a href="#">MOVIE TICKET</a></li>
+                                    <li><a href="#">MUSIC TICKET</a></li>
+                                    <li><a href="#">DRAMA TICKET</a></li>
+                                    <li><a href="#">SPORTS TICKET</a></li>
+                                </ul>
+                            </div>
+                            <div class="account_desc" style="font-weight: bold; font-size: large">
+                                <ul>
+                                    <li><a href="#">Register</a></li>
+                                    <li><a href="#">Login</a></li>
+                                    <li><a href="#">My Profile</a></li>
+                                    <li><a href="#">Contact Us</a></li>
+                                    <li><a href="#">FAQ's</a></li>
+                                </ul>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="wrap">
+                        <div class="header_top">
+                            <div class="logo">
+                                <a href="#"><img src="resources/image/newlogo.jpg" alt="" /></a>
+                            </div>
+                            <div class="header_top_right">
+                                <div class="search_box">
+                                    <form>
+                                        <input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {
+                                                    this.value = 'Search';
+                                                }"/><input type="submit" value=""/>
+                                    </form>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <script type="text/javascript">
+                                function DropDown(el) {
+                                    this.dd = el;
+                                    this.initEvents();
+                                }
+                                DropDown.prototype = {
+                                    initEvents: function () {
+                                        var obj = this;
+
+                                        obj.dd.on('click', function (event) {
+                                            $(this).toggleClass('active');
+                                            event.stopPropagation();
+                                        });
+                                    }
+                                }
+
+                                $(function () {
+
+                                    var dd = new DropDown($('#dd'));
+
+                                    $(document).click(function () {
+                                        // all dropdowns
+                                        $('.wrapper-dropdown-2').removeClass('active');
+                                    });
+
+                                });
+                            </script>
+                            <div class="clear"></div>
+                        </div>     
+
+                        <div class="clear"></div>
+                    </div>
+                </div>
+
+                <!--End Header -->
+            </ui:insert>
+        </div>
+
+        <div id="content" class="center_content">
+            <ui:insert name="content">
+                <div class="main">
+                    <div class="wrap">
+                        <div class="content_top">
+                            <div class="back-links">
+                                <p><h:link outcome="displayMovies.xhtml">Movie Ticket</h:link>> &gt;&gt;&gt;&gt; <a href="#" class="active">Movie Detail</a></p>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <h:form id="displayForm">
+                            <div class="section group">
+                                <div class="cont-desc span_1_of_2">
+                                    <div class="product-details">				
+                                        <div class="grid images_3_of_2">
+                                            <p:graphicImage value="/#{globalVariable.selectedMovie.image}" width="400" height="450"/>
+                                        </div>
+                                        <div class="desc span_3_of_2">
+                                            <h2><p:outputLabel value="#{globalVariable.selectedMovie.movieName}" style="font-size: x-large"/></h2>
+
+                                            <div class="price">
+                                                <p>Price: <span><p:outputLabel value="#{globalVariable.selectedMovie.ticketPrice}">
+                                                            <f:convertNumber type="currency" currencySymbol="$ " maxFractionDigits="0"/>
+                                                        </p:outputLabel> </span></p>
+                                            </div>
+                                            <div class="available">
+                                                <ul>
+                                                    <li><span>Director:</span> &nbsp; <p:outputLabel value="#{globalVariable.selectedMovie.director}" /></li>
+                                                    <li><span>Cast:</span>&nbsp; <p:outputLabel value="#{globalVariable.selectedMovie.cast}" /></li>
+                                                    <li><span>Genre:</span>&nbsp; <p:outputLabel value="#{globalVariable.selectedMovie.genre}" />
+
+                                                    </li>
+                                                    <li><span>Release date:</span>&nbsp; <p:outputLabel value="#{globalVariable.selectedMovie.beginDate}" >
+                                                            <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+                                                        </p:outputLabel></li>
+                                                    <li><span>Running Time:</span>&nbsp; <p:outputLabel value="#{globalVariable.selectedMovie.runTime} minutes" /></li>
+                                                    <li><span>Language:</span>&nbsp; <p:outputLabel value="#{globalVariable.selectedMovie.language}" /></li>
+                                                    <li><span>Rated:</span>&nbsp; <p:outputLabel value="#{globalVariable.selectedMovie.rated} +" /></li>
+                                                    <li><p:commandButton value="GET TICKET" update=":displayForm:bookTicket"
+                                                                         oncomplete="PF('bookingDlg').show(); return false;">
+                                                            <p:graphicImage value="/resources/image/cash.png"/>
+                                                        </p:commandButton></li>
+                                                </ul>
+                                            </div>
+                                            <div class="share-desc">
+                                                <div class="clear"></div>
+                                            </div>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                    <div class="product_desc">	
+                                        <h2>Description :</h2>
+                                        <p><h:outputText value="#{globalVariable.selectedMovie.description}" style="text-align: justify"/> </p>
+                                    </div>
+                                </div>
+                                <div class="rightsidebar span_3_of_1 sidebar">
+
+                                    <h2>Specials</h2>
+                                    <div class="special_movies">
+                                        <div class="movie_poster">
+                                            <a href="#"><img src="resources/image/end-game.jpg" alt="" /></a>
+                                        </div>
+                                        <div class="movie_desc">
+                                            <h3><a href="#">End Game</a></h3>
+                                            <p><span>$620.87</span> &nbsp; $500.35</p>
+                                            <span><a href="#">Get ticket</a></span>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>	
+
+                                </div>
+                            </div>
+
+                            <!-- Dialog for Booking ticket -->
+                            <p:dialog header="Booking tickets" widgetVar="bookingDlg" modal="true" position="center center" onShow="PF('bookingDlg').initPosition()"
+                                      showEffect="fold" hideEffect="explode" resizable="false">
+                                <p:outputPanel id="bookTicket" style="text-align:center">
+                                    <p:panelGrid columns="2" style="width: 100%; text-align: left; border: hidden">   
+                                        <p:outputLabel for="showDate" value="Select date:" />
+                                        <p:calendar id="showDate" value="#{bookingMovieMB.bookingDate}" mindate="#{bookingMovieMB.today}" maxdate="#{bookingMovieMB.maxDate}" pattern="dd/MM/yyyy"/>
+                                        
+                                        
+                                        <p:outputLabel for="city" value="Select Province/City: "  />
+                                        <p:selectOneMenu id="city" value="#{bookingMovieMB.selectedAreaID}" panelStyle="width:180px"
+                                                         effect="fade" style="width:160px" filter="true" filterMatchMode="startsWith">     
+                                            <p:ajax update="theater" listener="#{bookingMovieMB.findCinema()}"/>
+                                            <f:selectItem itemLabel="Select City" itemValue="" noSelectionOption="true" />
+                                            <f:selectItems value="#{bookingMovieMB.showAll()}" var="cityItem" itemValue="#{cityItem.areaID}" itemLabel="#{cityItem.areaName}"/>                                            
+                                        </p:selectOneMenu>
+
+                                        <p:outputLabel for="theater" value="Theater: "/>
+                                        <p:selectOneMenu id="theater" value="#{bookingMovieMB.cinemaID}" panelStyle="width:200px"
+                                                         effect="fade" style="width:200px" filter="true" filterMatchMode="startsWith">
+                                            <f:selectItem itemLabel="Select Cinema" itemValue="" noSelectionOption="true" />
+                                            <f:selectItems value="#{bookingMovieMB.cinemaList}" var="cinemaItem" itemLabel="#{cinemaItem.cinemaName}" itemValue="#{cinemaItem.cinemaID}" />
+                                        </p:selectOneMenu>
+
+                                        <p:outputLabel for="timeSlot" value="Time slots: "  />
+                                        <p:selectOneMenu id="timeSlot" value="City" panelStyle="width:180px"
+                                                         effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
+                                            <f:selectItem itemLabel="Select One" itemValue="1" />
+                                            <f:selectItem itemLabel="Sang"  />
+                                            <f:selectItem itemLabel="Trua"  />
+                                            <f:selectItem itemLabel="Chieu"  />
+                                            <f:selectItem itemLabel="Toi"  />
+                                            <f:selectItem itemLabel="Khuya"  />
+                                        </p:selectOneMenu>
+
+                                        <p:outputLabel value=""/>
+                                        <p:commandButton value="NEXT" title="Next step is selecting seats"/>
+
+                                    </p:panelGrid>
+                                </p:outputPanel>
+                            </p:dialog>
+                            <!--/ Dialog for Booking ticket -->
+
+                        </h:form>
+                    </div>
+                </div>
+            </ui:insert>
+        </div>
+
+        <div id="bottom" class="bottom">
+            <ui:insert name="bottom">
+                <div class="footer">   	  
+                    <div class="copy_right">
+                        <p>SHOWBIZ Company | <a href="#">www.easytickets.com</a> </p>
+                    </div>			
+                </div>              
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $().UItoTop({easingType: 'easeOutQuart'});
+
+                    });
+                </script>
+                <a href="#" id="toTop"><span id="toTopHover"> </span></a>
+            </ui:insert>
+        </div>
+
+    </h:body>
+
+</html>
